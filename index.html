@@ -17,7 +17,7 @@
             color: var(--text-color);
             line-height: 1.6;
             margin: 0;
-            padding: 20px; /* Added padding for mobile */
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -30,16 +30,17 @@
             border: 2px solid var(--text-color);
             padding: 40px;
             text-align: center;
-            max-width: 600px;
-            width: 100%; /* Full width within padding */
-            box-sizing: border-box; /* Include padding and border in width calculation */
-            margin: 0 auto; /* Center the container */
+            max-width: 800px;
+            width: 100%;
+            box-sizing: border-box;
+            margin: 0 auto;
             transition: transform 0.3s ease;
+            position: relative;
         }
 
         @media (max-width: 600px) {
             .container {
-                padding: 20px; /* Reduce padding on smaller screens */
+                padding: 20px;
             }
         }
 
@@ -49,6 +50,11 @@
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid var(--text-color);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.1);
         }
 
         h1 {
@@ -70,6 +76,12 @@
             padding: 5px 10px;
             border-radius: 20px;
             font-size: 0.8em;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
         }
 
         .social-links {
@@ -77,7 +89,7 @@
             display: flex;
             justify-content: center;
             gap: 20px;
-            flex-wrap: wrap; /* Allow wrapping on small screens */
+            flex-wrap: wrap;
         }
 
         .social-links a {
@@ -85,73 +97,90 @@
             text-decoration: none;
             font-size: 1.5em;
             border-bottom: 1px solid var(--text-color);
-            transition: opacity 0.3s ease;
-            margin: 5px; /* Add margin for better spacing */
+            transition: all 0.3s ease;
+            margin: 5px;
+            display: inline-block;
         }
 
         .social-links a:hover {
-            opacity: 0.7;
+            transform: scale(1.2);
+            color: var(--accent-color);
+            border-bottom-color: var(--accent-color);
         }
 
         .dark-mode-toggle {
             position: absolute;
             top: 20px;
             right: 20px;
-        }
-
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: var(--text-color);
-            transition: .4s;
-            border-radius: 34px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
+            padding: 10px;
             background-color: var(--bg-color);
-            transition: .4s;
-            border-radius: 50%;
+            border: 1px solid var(--text-color);
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            transition: background-color 0.3s ease;
         }
 
-        input:checked + .slider:before {
-            transform: translateX(26px);
+        .dark-mode-toggle:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
         }
 
         body.dark-mode {
             --bg-color: #000000;
             --text-color: #ffffff;
         }
+
+        @media (prefers-color-scheme: dark) {
+            body:not(.light-mode) {
+                --bg-color: #000000;
+                --text-color: #ffffff;
+            }
+        }
+
+        .projects {
+            margin-top: 40px;
+        }
+
+        .project-card {
+            background-color: var(--bg-color);
+            border: 1px solid var(--text-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-card h3 {
+            margin: 0 0 10px;
+        }
+
+        .project-card p {
+            margin: 0;
+        }
+
+        .project-card a {
+            color: var(--text-color);
+            text-decoration: none;
+            border-bottom: 1px solid var(--text-color);
+        }
+
+        .project-card a:hover {
+            opacity: 0.7;
+        }
     </style>
 </head>
 <body>
-    <div class="dark-mode-toggle">
-        <label class="switch">
-            <input type="checkbox" id="darkModeToggle">
-            <span class="slider"></span>
-        </label>
+    <div class="dark-mode-toggle" id="darkModeToggle">
+        🌙
     </div>
     <div class="container">
         <img src="https://avatars.githubusercontent.com/u/154456592?v=4" alt="Tu foto" class="profile-pic">
@@ -170,13 +199,43 @@
             <a href="https://x.com/jacoboesv" target="_blank">X</a>
             <a href="https://www.linkedin.com/in/jacoboesv/" target="_blank">LinkedIn</a>
         </div>
+
+        <div class="projects">
+            <div class="project-card">
+                <h3>PyVRP</h3>
+                <p>Gestión de rutas. Tecnologías utilizadas Python, HTML, CSS, JavaScript, SQL.</p>
+                <a href="#" target="_blank">Ver proyecto</a>
+            </div>
+            <div class="project-card">
+                <h3>PyExpenseManager</h3>
+                <p>Gestor de gastos. Tecnologías utilizadas: Python, SQL.</p>
+                <a href="#" target="_blank">Ver proyecto</a>
+            </div>
+        </div>
     </div>
 
     <script>
         const darkModeToggle = document.getElementById('darkModeToggle');
-        
-        darkModeToggle.addEventListener('change', () => {
-            document.body.classList.toggle('dark-mode');
+        const body = document.body;
+
+        // Función para aplicar el modo oscuro o claro
+        const applyDarkMode = (isDark) => {
+            body.classList.toggle('dark-mode', isDark);
+            darkModeToggle.textContent = isDark ? '☀️' : '🌙';
+            localStorage.setItem('dark-mode', isDark ? 'enabled' : 'disabled');
+        };
+
+        // Detectar la preferencia del sistema
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const userPrefersDark = localStorage.getItem('dark-mode') === 'enabled';
+
+        // Aplicar el modo oscuro si el usuario lo ha configurado o si el sistema lo prefiere
+        applyDarkMode(userPrefersDark || (systemPrefersDark && localStorage.getItem('dark-mode') === null));
+
+        // Cambiar el modo al hacer clic en el toggle
+        darkModeToggle.addEventListener('click', () => {
+            const isDark = !body.classList.contains('dark-mode');
+            applyDarkMode(isDark);
         });
     </script>
 </body>
