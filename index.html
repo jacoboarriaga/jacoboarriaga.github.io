@@ -108,24 +108,20 @@
             border-bottom-color: var(--accent-color);
         }
 
-        .dark-mode-toggle {
+        .language-toggle {
             position: absolute;
             top: 20px;
             right: 20px;
-            padding: 10px;
+            padding: 10px 15px;
             background-color: var(--bg-color);
             border: 1px solid var(--text-color);
             border-radius: 20px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
             transition: background-color 0.3s ease;
+            font-weight: bold;
         }
 
-        .dark-mode-toggle:hover {
+        .language-toggle:hover {
             background-color: var(--text-color);
             color: var(--bg-color);
         }
@@ -180,15 +176,19 @@
 </head>
 <body>
     <div class="container">
+        <button class="language-toggle" onclick="toggleLanguage()">EN</button>
+        
         <img src="https://avatars.githubusercontent.com/u/154456592?v=4" alt="Tu foto" class="profile-pic">
         <h1>Jacobo Arriaga</h1>
-        <p>Desarrollo | Redes | Bases de datos</p>
+        <p class="subtitle" data-es="Desarrollo | Redes | Bases de datos" data-en="Development | Networks | Databases">Desarrollo | Redes | Bases de datos</p>
         
         <div class="skills">
-            <span class="skill-tag">SQL Server</span>
-            <span class="skill-tag">IIS</span>
-            <span class="skill-tag">Python</span>
-            <span class="skill-tag">Firewalls</span>
+            <span class="skill-tag" data-es="" data-en="">SQL</span>
+            <span class="skill-tag" data-es="" data-en="">IIS</span>
+            <span class="skill-tag" data-es="" data-en="">Python</span>
+            <span class="skill-tag" data-es="" data-en="">Domains</span>
+            <span class="skill-tag" data-es="" data-en="">Emails</span>
+            <span class="skill-tag" data-es="" data-en="">WebPages</span>
         </div>
 
         <div class="social-links">
@@ -200,10 +200,43 @@
         <div class="projects">
             <div class="project-card">
                 <h3>PyExpenseManager</h3>
-                <p>Gestor de gastos. Tecnologías utilizadas: Python, SQL.</p>
-                <a href="https://github.com/jacoboesv/PyExpenseManager" target="_blank">Ver proyecto</a>
+                <p class="project-desc" data-es="Gestor de gastos. Tecnologías utilizadas: Python, SQL." data-en="Expense manager. Technologies used: Python, SQL.">
+                    Gestor de gastos. Tecnologías utilizadas: Python, SQL.
+                </p>
+                <a href="https://github.com/jacoboesv/PyExpenseManager" target="_blank" class="project-link" data-es="Ver proyecto" data-en="View project">Ver proyecto</a>
             </div>
         </div>
     </div>
+
+    <script>
+        let currentLang = 'es';
+
+        // Detectar idioma del navegador al cargar
+        window.addEventListener('DOMContentLoaded', () => {
+            const browserLang = navigator.language || navigator.userLanguage;
+            if (browserLang.startsWith('en')) {
+                currentLang = 'en';
+                updateLanguage();
+            }
+        });
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'es' ? 'en' : 'es';
+            updateLanguage();
+        }
+
+        function updateLanguage() {
+            const elements = document.querySelectorAll('[data-es][data-en]');
+            const langButton = document.querySelector('.language-toggle');
+            
+            elements.forEach(el => {
+                el.textContent = el.getAttribute(`data-${currentLang}`);
+            });
+
+            langButton.textContent = currentLang === 'es' ? 'EN' : 'ES';
+            document.documentElement.lang = currentLang;
+        }
+    </script>
+
 </body>
 </html>
