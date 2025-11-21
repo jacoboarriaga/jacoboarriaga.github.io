@@ -12,17 +12,28 @@
         }
 
         :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #f39c12;
-            --light: #ecf0f1;
-            --dark: #1a252f;
-            --gold: #ffd700;
+            --primary: #202A44;
+            --secondary: #BB6F58;
+            --bg-main: #f5f5f5;
+            --bg-card: #ffffff;
+            --text-main: #202A44;
+            --text-secondary: #666;
+            --shadow: rgba(32, 42, 68, 0.1);
+        }
+
+        body.dark-mode {
+            --primary: #BB6F58;
+            --secondary: #E8A592;
+            --bg-main: #1a1a1a;
+            --bg-card: #202A44;
+            --text-main: #f5f5f5;
+            --text-secondary: #c0c0c0;
+            --shadow: rgba(0, 0, 0, 0.3);
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--bg-main);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -30,6 +41,7 @@
             padding: 20px;
             position: relative;
             overflow-x: hidden;
+            transition: all 0.3s ease;
         }
 
         /* Estrellas animadas */
@@ -45,28 +57,30 @@
 
         .star {
             position: absolute;
-            background: white;
+            background: var(--secondary);
             border-radius: 50%;
             animation: twinkle 3s infinite ease-in-out;
+            opacity: 0.3;
         }
 
         @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
         }
 
         /* Contenedor principal */
         .container {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--bg-card);
             backdrop-filter: blur(20px);
             border-radius: 30px;
             padding: 60px 50px;
             max-width: 900px;
             width: 100%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 60px var(--shadow);
             position: relative;
             z-index: 2;
             animation: fadeIn 0.8s ease;
+            transition: all 0.3s ease;
         }
 
         @keyframes fadeIn {
@@ -74,26 +88,32 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Botón de idioma */
-        .language-toggle {
+        /* Controles superiores */
+        .top-controls {
             position: absolute;
             top: 25px;
             right: 25px;
+            display: flex;
+            gap: 10px;
+            z-index: 3;
+        }
+
+        .control-btn {
             padding: 12px 24px;
-            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             border: none;
             border-radius: 25px;
             cursor: pointer;
             font-weight: 600;
             color: white;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            box-shadow: 0 4px 15px rgba(187, 111, 88, 0.3);
             font-size: 14px;
         }
 
-        .language-toggle:hover {
+        .control-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+            box-shadow: 0 6px 20px rgba(187, 111, 88, 0.5);
         }
 
         /* Foto de perfil */
@@ -107,22 +127,23 @@
             height: 160px;
             border-radius: 50%;
             object-fit: cover;
-            border: 5px solid var(--accent);
-            box-shadow: 0 10px 30px rgba(243, 156, 18, 0.3);
+            border: 5px solid var(--secondary);
+            box-shadow: 0 10px 30px rgba(187, 111, 88, 0.3);
             transition: all 0.4s ease;
             margin-bottom: 20px;
         }
 
         .profile-pic:hover {
             transform: scale(1.05) rotate(5deg);
-            box-shadow: 0 15px 40px rgba(243, 156, 18, 0.5);
+            box-shadow: 0 15px 40px rgba(187, 111, 88, 0.5);
         }
 
         h1 {
-            color: var(--primary);
+            color: var(--text-main);
             font-size: 2.5em;
             margin-bottom: 10px;
             font-weight: 700;
+            transition: color 0.3s ease;
         }
 
         .subtitle {
@@ -142,20 +163,19 @@
         }
 
         .skill-tag {
-            background: linear-gradient(135deg, var(--secondary), #5dade2);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             padding: 10px 20px;
             border-radius: 25px;
             font-size: 0.9em;
             font-weight: 500;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+            box-shadow: 0 4px 15px rgba(187, 111, 88, 0.2);
         }
 
         .skill-tag:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
-            background: linear-gradient(135deg, var(--accent), #f7b731);
+            box-shadow: 0 6px 20px rgba(187, 111, 88, 0.4);
         }
 
         /* Enlaces sociales */
@@ -168,7 +188,7 @@
         }
 
         .social-links a {
-            color: var(--primary);
+            color: var(--text-main);
             text-decoration: none;
             font-size: 1.1em;
             font-weight: 600;
@@ -187,7 +207,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             transition: left 0.3s ease;
             z-index: -1;
         }
@@ -198,9 +218,9 @@
 
         .social-links a:hover {
             color: white;
-            border-color: var(--accent);
+            border-color: var(--secondary);
             transform: translateY(-3px);
-            box-shadow: 0 5px 20px rgba(52, 152, 219, 0.3);
+            box-shadow: 0 5px 20px rgba(187, 111, 88, 0.3);
         }
 
         /* Proyectos */
@@ -209,15 +229,16 @@
         }
 
         .projects h2 {
-            color: var(--primary);
+            color: var(--text-main);
             font-size: 1.8em;
             margin-bottom: 25px;
             text-align: center;
             font-weight: 600;
+            transition: color 0.3s ease;
         }
 
         .project-card {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, rgba(187, 111, 88, 0.1) 0%, rgba(32, 42, 68, 0.05) 100%);
             border-radius: 20px;
             padding: 30px;
             margin: 20px 0;
@@ -225,40 +246,46 @@
             border: 2px solid transparent;
         }
 
+        body.dark-mode .project-card {
+            background: linear-gradient(135deg, rgba(187, 111, 88, 0.15) 0%, rgba(32, 42, 68, 0.3) 100%);
+        }
+
         .project-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            border-color: var(--accent);
+            box-shadow: 0 15px 40px var(--shadow);
+            border-color: var(--secondary);
         }
 
         .project-card h3 {
-            color: var(--primary);
+            color: var(--text-main);
             font-size: 1.5em;
             margin-bottom: 15px;
             font-weight: 600;
+            transition: color 0.3s ease;
         }
 
         .project-card p {
-            color: var(--dark);
+            color: var(--text-secondary);
             line-height: 1.6;
             margin-bottom: 20px;
+            transition: color 0.3s ease;
         }
 
         .project-card a {
             display: inline-block;
             color: white;
-            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             text-decoration: none;
             padding: 12px 30px;
             border-radius: 25px;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            box-shadow: 0 4px 15px rgba(187, 111, 88, 0.3);
         }
 
         .project-card a:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.5);
+            box-shadow: 0 6px 20px rgba(187, 111, 88, 0.5);
         }
 
         /* Decoración de planetas pequeños */
@@ -271,24 +298,24 @@
         .planet-1 {
             width: 80px;
             height: 80px;
-            background: radial-gradient(circle at 30% 30%, #ffd700, #f39c12);
+            background: radial-gradient(circle at 30% 30%, var(--secondary), var(--primary));
             border-radius: 50%;
             top: 10%;
             right: 10%;
-            opacity: 0.6;
-            box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
+            opacity: 0.4;
+            box-shadow: 0 0 40px rgba(187, 111, 88, 0.5);
             animation: float 6s ease-in-out infinite;
         }
 
         .planet-2 {
             width: 60px;
             height: 60px;
-            background: radial-gradient(circle at 30% 30%, #3498db, #2980b9);
+            background: radial-gradient(circle at 30% 30%, var(--primary), var(--secondary));
             border-radius: 50%;
             bottom: 15%;
             left: 8%;
-            opacity: 0.6;
-            box-shadow: 0 0 30px rgba(52, 152, 219, 0.5);
+            opacity: 0.4;
+            box-shadow: 0 0 30px rgba(32, 42, 68, 0.5);
             animation: float 8s ease-in-out infinite reverse;
         }
 
@@ -309,6 +336,16 @@
 
             .subtitle {
                 font-size: 1em;
+            }
+
+            .top-controls {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .control-btn {
+                padding: 10px 20px;
+                font-size: 12px;
             }
 
             .social-links {
@@ -335,7 +372,10 @@
     <div class="planet-decoration planet-2"></div>
 
     <div class="container">
-        <button class="language-toggle" onclick="toggleLanguage()">EN</button>
+        <div class="top-controls">
+            <button class="control-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+            <button class="control-btn" id="langBtn" onclick="toggleLanguage()">EN</button>
+        </div>
         
         <div class="profile-section">
             <img src="https://avatars.githubusercontent.com/u/154456592?v=4" alt="Jacobo Arriaga" class="profile-pic">
@@ -346,10 +386,10 @@
         <div class="skills">
             <span class="skill-tag" data-es="Servidor SQL" data-en="SQL Server">Servidor SQL</span>
             <span class="skill-tag" data-es="Servidor IIS" data-en="IIS Server">Servidor IIS</span>
-            <span class="skill-tag" data-es="Python" data-en="Python">Python</span>
+            <span class="skill-tag">Python</span>
             <span class="skill-tag" data-es="Cortafuegos" data-en="Firewall">Cortafuegos</span>
-            <span class="skill-tag" data-es="Paginas Web" data-en="Websites">Paginas Web</span>
-            <span class="skill-tag" data-es="Correo electronicos" data-en="Emails">Correos electronicos</span>
+            <span class="skill-tag" data-es="Páginas Web" data-en="Websites">Páginas Web</span>
+            <span class="skill-tag" data-es="Correos electrónicos" data-en="Emails">Correos electrónicos</span>
             <span class="skill-tag" data-es="Dominios" data-en="Domains">Dominios</span>
         </div>
 
@@ -385,6 +425,23 @@
             starsContainer.appendChild(star);
         }
 
+        // Sistema de tema oscuro/claro
+        let isDarkMode = false;
+        const themeBtn = document.getElementById('themeBtn');
+
+        // Detectar preferencia del sistema
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            isDarkMode = true;
+            document.body.classList.add('dark-mode');
+            themeBtn.textContent = '☀️';
+        }
+
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('dark-mode');
+            themeBtn.textContent = isDarkMode ? '☀️' : '🌙';
+        }
+
         // Sistema de idiomas
         let currentLang = 'es';
 
@@ -403,13 +460,13 @@
 
         function updateLanguage() {
             const elements = document.querySelectorAll('[data-es][data-en]');
-            const langButton = document.querySelector('.language-toggle');
+            const langBtn = document.getElementById('langBtn');
             
             elements.forEach(el => {
                 el.textContent = el.getAttribute(`data-${currentLang}`);
             });
 
-            langButton.textContent = currentLang === 'es' ? 'EN' : 'ES';
+            langBtn.textContent = currentLang === 'es' ? 'EN' : 'ES';
             document.documentElement.lang = currentLang;
         }
     </script>
