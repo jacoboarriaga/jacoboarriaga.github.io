@@ -179,9 +179,6 @@
     </style>
 </head>
 <body>
-    <div class="dark-mode-toggle" id="darkModeToggle">
-        🌙
-    </div>
     <div class="container">
         <img src="https://avatars.githubusercontent.com/u/154456592?v=4" alt="Tu foto" class="profile-pic">
         <h1>Jacobo Arriaga</h1>
@@ -196,7 +193,7 @@
 
         <div class="social-links">
             <a href="https://github.com/jacoboarriaga" target="_blank">GitHub</a>
-            <!--<a href="https://x.com/jacoboslv" target="_blank">X</a>-->
+            <a href="https://x.com/jacoboarriag" target="_blank">X</a>
             <a href="https://www.linkedin.com/in/jacoboarriaga/" target="_blank">LinkedIn</a>
         </div>
 
@@ -208,30 +205,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const body = document.body;
-
-        // Función para aplicar el modo oscuro o claro
-        const applyDarkMode = (isDark) => {
-            body.classList.toggle('dark-mode', isDark);
-            darkModeToggle.textContent = isDark ? '☀️' : '🌙';
-            localStorage.setItem('dark-mode', isDark ? 'enabled' : 'disabled');
-        };
-
-        // Detectar la preferencia del sistema
-        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const userPrefersDark = localStorage.getItem('dark-mode') === 'enabled';
-
-        // Aplicar el modo oscuro si el usuario lo ha configurado o si el sistema lo prefiere
-        applyDarkMode(userPrefersDark || (systemPrefersDark && localStorage.getItem('dark-mode') === null));
-
-        // Cambiar el modo al hacer clic en el toggle
-        darkModeToggle.addEventListener('click', () => {
-            const isDark = !body.classList.contains('dark-mode');
-            applyDarkMode(isDark);
-        });
-    </script>
 </body>
 </html>
