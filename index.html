@@ -2,569 +2,630 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portafolio - Jacobo Arriaga</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Jacobo Arriaga</title>
     <link rel="icon" href="https://avatars.githubusercontent.com/u/154456592?v=4" type="image/png">
-    <link rel="apple-touch-icon" href="https://avatars.githubusercontent.com/u/154456592?v=4">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://avatars.githubusercontent.com/u/154456592?v=4">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --primary: #000000;
-            --secondary: #b8653a;
-            --bg-main: #fafafa;
-            --bg-card: #ffffff;
-            --text-main: #000000;
-            --text-secondary: #666666;
-            --shadow: rgba(0, 0, 0, 0.08);
-        }
-
-        body.dark-mode {
-            --primary: #b8653a;
-            --secondary: #d9956d;
-            --bg-main: #0f0f0f;
-            --bg-card: #1a1a1a;
-            --text-main: #ffffff;
-            --text-secondary: #d4d4d8;
-            --shadow: rgba(0, 0, 0, 0.3);
+            --accent: #b8653a;
+            --accent-hover: #d9956d;
+            --bg: #e8e8ed;
+            --bg-dark: #1c1c1e;
+            --surface: rgba(255,255,255,0.78);
+            --surface-dark: rgba(44,44,46,0.78);
+            --surface-solid: #ffffff;
+            --surface-solid-dark: #2c2c2e;
+            --menu-bg: rgba(255,255,255,0.45);
+            --menu-bg-dark: rgba(44,44,46,0.45);
+            --dock-bg: rgba(255,255,255,0.35);
+            --dock-bg-dark: rgba(44,44,46,0.35);
+            --text: #1c1c1e;
+            --text-dark: #f5f5f7;
+            --text-sec: #86868b;
+            --text-sec-dark: #98989d;
+            --border: rgba(0,0,0,0.08);
+            --border-dark: rgba(255,255,255,0.08);
+            --shadow: 0 8px 40px rgba(0,0,0,0.1);
+            --shadow-dark: 0 8px 40px rgba(0,0,0,0.45);
+            --radius: 14px;
+            --radius-sm: 10px;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-main);
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+            background: var(--bg);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
-            transition: all 0.3s ease;
+            overflow: hidden;
+            transition: background 0.4s ease;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Estrellas animadas */
+        body.dark {
+            --bg: var(--bg-dark);
+            --surface: var(--surface-dark);
+            --surface-solid: var(--surface-solid-dark);
+            --menu-bg: var(--menu-bg-dark);
+            --dock-bg: var(--dock-bg-dark);
+            --text: var(--text-dark);
+            --text-sec: var(--text-sec-dark);
+            --border: var(--border-dark);
+            --shadow: var(--shadow-dark);
+        }
+
+        /* ── Stars ── */
         .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0;
         }
-
         .star {
-            position: absolute;
-            background: var(--secondary);
-            border-radius: 50%;
-            animation: twinkle 3s infinite ease-in-out;
-            opacity: 0.15;
+            position: absolute; background: var(--accent); border-radius: 50%;
+            animation: twinkle 4s infinite ease-in-out; opacity: 0.1;
         }
-
         @keyframes twinkle {
-            0%, 100% { opacity: 0.1; transform: scale(1); }
-            50% { opacity: 0.2; transform: scale(1.1); }
+            0%, 100% { opacity: 0.08; transform: scale(1); }
+            50% { opacity: 0.18; transform: scale(1.15); }
         }
 
-        /* Contenedor principal */
-        .container {
-            background: var(--bg-card);
-            backdrop-filter: blur(0.5px);
-            border-radius: 16px;
-            padding: 60px 50px;
-            max-width: 900px;
-            width: 100%;
-            box-shadow: 0 2px 8px var(--shadow);
-            position: relative;
-            z-index: 2;
-            animation: fadeIn 0.8s ease;
-            transition: all 0.3s ease;
+        /* ── Wallpaper glow ── */
+        .wallpaper-glow {
+            position: fixed; top: -30%; left: -20%; width: 140%; height: 140%;
+            background: radial-gradient(ellipse at 30% 40%, var(--accent) 0%, transparent 60%);
+            opacity: 0.04; pointer-events: none; z-index: 0;
+            transition: opacity 0.4s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* ═══════════════ DESKTOP LAYOUT (≥769px) ═══════════════ */
+        @media (min-width: 769px) {
+            body { display: flex; flex-direction: column; }
+
+            /* ── Menu Bar ── */
+            .menu-bar {
+                position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+                height: 44px;
+                background: var(--menu-bg);
+                backdrop-filter: blur(20px) saturate(1.4);
+                -webkit-backdrop-filter: blur(20px) saturate(1.4);
+                border-bottom: 1px solid var(--border);
+                display: flex; align-items: center; justify-content: space-between;
+                padding: 0 20px; user-select: none;
+            }
+            .menu-left { display: flex; align-items: center; gap: 10px; }
+            .menu-icon {
+                width: 18px; height: 18px; border-radius: 4px;
+                background: var(--accent); display: flex; align-items: center; justify-content: center;
+                font-size: 10px; color: #fff; font-weight: 700;
+            }
+            .menu-title { font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
+            .menu-right { display: flex; align-items: center; gap: 12px; }
+            .menu-btn {
+                background: none; border: none; font-size: 13px; font-weight: 500;
+                color: var(--text); cursor: pointer; padding: 4px 10px;
+                border-radius: 6px; transition: all 0.2s ease;
+            }
+            .menu-btn:hover { background: var(--border); }
+            .menu-time { font-size: 13px; font-weight: 500; color: var(--text); min-width: 70px; text-align: right; }
+            .menu-sep { width: 1px; height: 18px; background: var(--border); }
+
+            /* ── Main area ── */
+            main {
+                flex: 1; display: flex; align-items: center; justify-content: center;
+                padding: 60px 40px 100px; position: relative; z-index: 1;
+            }
+
+            /* ── Window ── */
+            .window {
+                width: 100%; max-width: 780px; max-height: calc(100vh - 160px);
+                background: var(--surface);
+                backdrop-filter: blur(30px) saturate(1.3);
+                -webkit-backdrop-filter: blur(30px) saturate(1.3);
+                border-radius: var(--radius);
+                border: 1px solid var(--border);
+                box-shadow: var(--shadow);
+                display: flex; flex-direction: column;
+                overflow: hidden; animation: windowIn 0.4s ease;
+            }
+            @keyframes windowIn {
+                from { opacity: 0; transform: scale(0.96) translateY(10px); }
+                to { opacity: 1; transform: scale(1) translateY(0); }
+            }
+            .window-bar {
+                display: flex; align-items: center; gap: 12px;
+                padding: 14px 20px; border-bottom: 1px solid var(--border);
+                flex-shrink: 0;
+            }
+            .window-dots { display: flex; gap: 8px; }
+            .dot {
+                width: 12px; height: 12px; border-radius: 50%;
+                transition: all 0.2s ease; cursor: pointer;
+            }
+            .dot-close { background: #ff5f57; }
+            .dot-minimize { background: #febc2e; }
+            .dot-maximize { background: #28c840; }
+            .dot-close:hover { background: #ff3b30; }
+            .dot-minimize:hover { background: #f5a623; }
+            .dot-maximize:hover { background: #34c759; }
+            .window-title-text {
+                font-size: 13px; font-weight: 600; color: var(--text-sec);
+                letter-spacing: -0.01em; flex: 1; text-align: center;
+                margin-right: 52px;
+            }
+            .window-content {
+                flex: 1; overflow-y: auto; padding: 40px;
+                -webkit-overflow-scrolling: touch;
+            }
+            .window-content::-webkit-scrollbar { width: 6px; }
+            .window-content::-webkit-scrollbar-track { background: transparent; }
+            .window-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+            /* ── Dock ── */
+            .dock {
+                position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+                z-index: 100;
+                display: flex; align-items: flex-end; gap: 6px;
+                padding: 8px 14px; border-radius: 20px;
+                background: var(--dock-bg);
+                backdrop-filter: blur(30px) saturate(1.4);
+                -webkit-backdrop-filter: blur(30px) saturate(1.4);
+                border: 1px solid var(--border);
+                box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            }
+            .dock-item {
+                display: flex; flex-direction: column; align-items: center; gap: 4px;
+                background: none; border: none; cursor: pointer; padding: 6px 10px;
+                border-radius: 10px; transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1);
+                position: relative;
+            }
+            .dock-item:hover { transform: scale(1.12) translateY(-4px); }
+            .dock-item:active { transform: scale(0.96); }
+            .dock-icon { font-size: 22px; line-height: 1; }
+            .dock-label { font-size: 10px; font-weight: 500; color: var(--text-sec); white-space: nowrap; }
+            .dock-item.active .dock-label { color: var(--accent); font-weight: 600; }
+            .dock-item.active::after {
+                content: ''; position: absolute; bottom: -2px;
+                width: 4px; height: 4px; border-radius: 50%; background: var(--accent);
+            }
+            .dock-sep { width: 1px; height: 30px; background: var(--border); align-self: center; }
+
+            /* ── Mobile elements hidden ── */
+            .mobile-app { display: none !important; }
         }
 
-        /* Controles superiores */
-        .top-controls {
-            position: absolute;
-            top: 25px;
-            right: 25px;
-            display: flex;
-            gap: 10px;
-            z-index: 3;
-        }
-
-        .control-btn {
-            padding: 12px 24px;
-            background: var(--primary);
-            border: 1px solid var(--secondary);
-            border-radius: 16px;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--secondary);
-            transition: all 0.3s ease;
-            box-shadow: none;
-            font-size: 14px;
-        }
-
-        .control-btn:hover {
-            background: var(--secondary);
-            color: white;
-            transform: scale(1.05);
-        }
-
-        /* Foto de perfil */
-        .profile-section {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .profile-pic {
-            width: 160px;
-            height: 160px;
-            border-radius: 16px;
-            object-fit: cover;
-            border: 2px solid var(--secondary);
-            box-shadow: 0 4px 12px var(--shadow);
-            transition: all 0.4s ease;
-            margin-bottom: 20px;
-        }
-
-        .profile-pic:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px var(--shadow);
-        }
-
-        h1 {
-            color: var(--text-main);
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            font-weight: 700;
-            transition: color 0.3s ease;
-        }
-
-        .subtitle {
-            color: var(--secondary);
-            font-size: 1.2em;
-            margin-bottom: 30px;
-            font-weight: 400;
-        }
-
-        /* Habilidades */
-        .skills {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin: 30px 0;
-        }
-
-        .skill-tag {
-            background: var(--secondary);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 16px;
-            font-size: 0.9em;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            box-shadow: none;
-        }
-
-        .skill-tag:hover {
-            transform: scale(1.05);
-            opacity: 0.8;
-        }
-
-        /* Enlaces sociales */
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 35px 0;
-            flex-wrap: wrap;
-        }
-
-        .social-links a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 1.1em;
-            font-weight: 600;
-            padding: 10px 24px;
-            border: 1px solid var(--text-main);
-            border-radius: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            color: white;
-            background: var(--secondary);
-            border-color: var(--secondary);
-            transform: translateY(-2px);
-        }
-
-        /* Proyectos */
-        .projects {
-            margin-top: 50px;
-        }
-
-        .projects h2 {
-            color: var(--text-main);
-            font-size: 1.8em;
-            margin-bottom: 25px;
-            text-align: center;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .project-card {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 20px;
-            margin: 20px 0;
-            transition: all 0.3s ease;
-            border: 1px solid #e5e7eb;
-        }
-
-        body.dark-mode .project-card {
-            border-color: #333333;
-        }
-
-        .project-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px var(--shadow);
-            border-color: var(--secondary);
-        }
-
-        .project-card h3 {
-            color: var(--text-main);
-            font-size: 1.5em;
-            margin-bottom: 15px;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .project-card p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 20px;
-            transition: color 0.3s ease;
-        }
-
-        .project-card a {
-            display: inline-block;
-            color: white;
-            background: var(--secondary);
-            text-decoration: none;
-            padding: 10px 24px;
-            border-radius: 16px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: none;
-        }
-
-        .project-card a:hover {
-            opacity: 0.8;
-            transform: translateY(-2px);
-        }
-
-        /* Sección Working On */
-        .working-on {
-            margin-top: 50px;
-            padding-top: 40px;
-            border-top: 1px solid #e5e7eb;
-        }
-
-        body.dark-mode .working-on {
-            border-top-color: #333333;
-        }
-
-        .working-on h2 {
-            color: var(--text-main);
-            font-size: 1.8em;
-            margin-bottom: 25px;
-            text-align: center;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        /* Categorías */
-        .project-categories {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .category {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .category-title {
-            color: var(--primary);
-            font-size: 1.3em;
-            font-weight: 700;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--secondary);
-            transition: all 0.3s ease;
-        }
-
-        .category-projects {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        /* Decoración de planetas pequeños */
-        .planet-decoration {
-            position: fixed;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .planet-1 {
-            width: 80px;
-            height: 80px;
-            background: var(--secondary);
-            border-radius: 50%;
-            top: 10%;
-            right: 10%;
-            opacity: 0.08;
-            box-shadow: none;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .planet-2 {
-            width: 60px;
-            height: 60px;
-            background: var(--secondary);
-            border-radius: 50%;
-            bottom: 15%;
-            left: 8%;
-            opacity: 0.08;
-            box-shadow: none;
-            animation: float 8s ease-in-out infinite reverse;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(10deg); }
-        }
-
-        /* Responsive */
+        /* ═══════════════ MOBILE LAYOUT (≤768px) ═══════════════ */
         @media (max-width: 768px) {
-            .container {
-                padding: 10px 10px;
+            body { overflow: auto; display: flex; flex-direction: column; }
+
+            /* ── Desktop elements hidden ── */
+            .menu-bar { display: none !important; }
+            .dock { display: none !important; }
+            .wallpaper-glow { display: none; }
+            main.window-wrapper { display: none; }
+
+            /* ── App Container ── */
+            .mobile-app {
+                display: flex; flex-direction: column; min-height: 100dvh;
+                background: var(--surface-solid); position: relative; z-index: 1;
+            }
+            body.dark .mobile-app { background: #000000; }
+
+            /* ── App Status Bar ── */
+            .app-status {
+                display: flex; justify-content: space-between; align-items: center;
+                padding: 12px 20px 6px; font-size: 14px; font-weight: 600;
+                color: var(--text); flex-shrink: 0;
             }
 
-            h1 {
-                font-size: 2em;
+            /* ── App Header ── */
+            .app-header {
+                display: flex; justify-content: space-between; align-items: center;
+                padding: 8px 20px 16px; flex-shrink: 0;
+            }
+            .app-header-title { font-size: 28px; font-weight: 700; color: var(--text); letter-spacing: -0.03em; }
+            .app-header-actions { display: flex; gap: 10px; }
+            .app-header-btn {
+                background: none; border: none; font-size: 20px; cursor: pointer;
+                padding: 4px; border-radius: 8px; transition: all 0.2s ease;
+                color: var(--text);
+            }
+            .app-header-btn:active { opacity: 0.5; }
+
+            /* ── App Content ── */
+            .app-content {
+                flex: 1; overflow-y: auto; padding: 0 20px 100px;
+                -webkit-overflow-scrolling: touch;
+            }
+            .app-content::-webkit-scrollbar { width: 0; }
+
+            /* ── Sections ── */
+            .section { display: none; animation: fadeUp 0.35s ease; }
+            .section.active { display: block; }
+            @keyframes fadeUp {
+                from { opacity: 0; transform: translateY(12px); }
+                to { opacity: 1; transform: translateY(0); }
             }
 
-            .subtitle {
-                font-size: 1em;
+            /* ── Tab Bar ── */
+            .tab-bar {
+                position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+                display: flex; justify-content: space-around; align-items: center;
+                padding: 8px 0 env(safe-area-inset-bottom, 8px);
+                background: var(--surface-solid);
+                border-top: 1px solid var(--border);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
             }
-
-            .top-controls {
-                flex-direction: column;
-                gap: 8px;
+            body.dark .tab-bar { background: rgba(0,0,0,0.9); }
+            .tab-item {
+                display: flex; flex-direction: column; align-items: center; gap: 2px;
+                background: none; border: none; cursor: pointer; padding: 6px 12px;
+                border-radius: 10px; transition: all 0.2s ease;
+                min-width: 60px;
             }
-
-            .control-btn {
-                padding: 10px 20px;
-                font-size: 12px;
-            }
-
-            .social-links {
-                gap: 15px;
-            }
-
-            .social-links a {
-                font-size: 1em;
-                padding: 10px 20px;
-            }
-
-            .planet-1, .planet-2 {
-                display: none;
-            }
+            .tab-item:active { transform: scale(0.9); }
+            .tab-icon { font-size: 22px; line-height: 1; }
+            .tab-label { font-size: 10px; font-weight: 500; color: var(--text-sec); }
+            .tab-item.active .tab-label { color: var(--accent); font-weight: 600; }
+            .tab-item.active .tab-icon { filter: none; }
         }
+
+        /* ═══════════════ SHARED SECTION STYLES ═══════════════ */
+        .section { display: none; }
+        .section.active { display: block; }
+        .section-content { max-width: 620px; margin: 0 auto; }
+
+        /* Profile */
+        .profile { text-align: center; padding: 10px 0; }
+        .profile-pic {
+            width: 130px; height: 130px; border-radius: 50%;
+            object-fit: cover; border: 3px solid var(--accent);
+            box-shadow: 0 4px 20px rgba(184,101,58,0.15);
+            transition: all 0.4s ease; margin-bottom: 20px;
+        }
+        .profile-pic:hover { transform: scale(1.04); }
+        .profile-name {
+            font-size: 2em; font-weight: 700; color: var(--text);
+            letter-spacing: -0.02em; margin-bottom: 6px;
+        }
+        .profile-sub {
+            font-size: 1.05em; color: var(--accent); font-weight: 400;
+            margin-bottom: 24px;
+        }
+        .profile-social {
+            display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        .profile-social a {
+            padding: 8px 20px; border-radius: 100px; font-size: 14px; font-weight: 600;
+            text-decoration: none; color: var(--text);
+            border: 1px solid var(--border); transition: all 0.25s ease;
+        }
+        .profile-social a:hover {
+            background: var(--accent); color: #fff; border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Skills */
+        .skills-wrap { text-align: center; padding: 5px 0; }
+        .skills-title {
+            font-size: 14px; font-weight: 600; color: var(--text-sec);
+            text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 16px;
+        }
+        .skills-grid {
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;
+        }
+        .skill-tag {
+            background: var(--border); color: var(--text);
+            padding: 8px 18px; border-radius: 100px; font-size: 13px; font-weight: 500;
+            transition: all 0.25s ease; border: 1px solid transparent;
+        }
+        .skill-tag:hover {
+            border-color: var(--accent); transform: scale(1.04);
+        }
+
+        /* Project Card */
+        .projects-header {
+            font-size: 14px; font-weight: 600; color: var(--text-sec);
+            text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 20px;
+            text-align: center;
+        }
+        .project-category { margin-bottom: 28px; }
+        .project-category-title {
+            font-size: 16px; font-weight: 700; color: var(--text);
+            margin-bottom: 14px; padding-bottom: 8px;
+            border-bottom: 2px solid var(--accent);
+        }
+        .project-card {
+            padding: 20px; border-radius: var(--radius-sm);
+            border: 1px solid var(--border); margin-bottom: 12px;
+            transition: all 0.25s ease; background: var(--surface-solid);
+        }
+        body.dark .project-card { background: var(--surface-solid-dark); }
+        .project-card:hover {
+            border-color: var(--accent); transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+        }
+        .project-card h3 {
+            font-size: 18px; font-weight: 600; color: var(--text);
+            margin-bottom: 8px;
+        }
+        .project-card p {
+            font-size: 14px; line-height: 1.6; color: var(--text-sec);
+            margin-bottom: 14px;
+        }
+        .project-card a {
+            display: inline-block; padding: 8px 20px; border-radius: 100px;
+            font-size: 13px; font-weight: 600; text-decoration: none;
+            background: var(--accent); color: #fff;
+            transition: all 0.25s ease;
+        }
+        .project-card a:hover { opacity: 0.85; transform: translateY(-1px); }
+        .project-card a:active { transform: scale(0.97); }
+
+        /* Working On */
+        .working-header {
+            font-size: 14px; font-weight: 600; color: var(--text-sec);
+            text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 20px;
+            text-align: center;
+        }
+        .working-card {
+            text-align: center; padding: 36px 24px;
+            border-radius: var(--radius-sm);
+            border: 1px dashed var(--accent); background: var(--surface-solid);
+            transition: all 0.25s ease;
+        }
+        body.dark .working-card { background: var(--surface-solid-dark); }
+        .working-card:hover { border-style: solid; }
+        .working-card h3 { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+        .working-card p { font-size: 14px; line-height: 1.6; color: var(--text-sec); margin-bottom: 18px; }
+        .working-badge {
+            display: inline-block; padding: 6px 16px; border-radius: 100px;
+            font-size: 12px; font-weight: 600; background: var(--accent); color: #fff;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .window-content { padding: 24px 16px !important; }
+            .profile-name { font-size: 1.6em; }
+            .profile-pic { width: 100px; height: 100px; }
+            .app-header-title { font-size: 24px; }
+        }
+
+        /* Smooth scroll behavior for all browsers */
+        .window-content { scroll-behavior: smooth; }
     </style>
 </head>
 <body>
-    <!-- Estrellas -->
+    <!-- Stars -->
     <div class="stars" id="stars"></div>
+    <div class="wallpaper-glow"></div>
 
-    <!-- Planetas decorativos -->
-    <div class="planet-decoration planet-1"></div>
-    <div class="planet-decoration planet-2"></div>
-
-    <div class="container">
-        <div class="top-controls">
-            <button class="control-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
-            <button class="control-btn" id="langBtn" onclick="toggleLanguage()">EN</button>
+    <!-- ═══ DESKTOP: Menu Bar ═══ -->
+    <header class="menu-bar">
+        <div class="menu-left">
+            <span class="menu-icon">J</span>
+            <span class="menu-title">Jacobo Arriaga</span>
         </div>
-        
-        <div class="profile-section">
-            <img src="https://avatars.githubusercontent.com/u/154456592?v=4" alt="Jacobo Arriaga" class="profile-pic">
-            <h1>Jacobo Arriaga</h1>
-            <div class="social-links">
-                <a href="https://github.com/jacoboarriaga" target="_blank">GitHub</a>
-                <a href="https://x.com/jacoboarriag" target="_blank">X</a>
-                <a href="https://www.linkedin.com/in/jacoboarriaga/" target="_blank">LinkedIn</a>
+        <div class="menu-right">
+            <button class="menu-btn" id="menuLangBtn" onclick="toggleLanguage()">EN</button>
+            <span class="menu-sep"></span>
+            <button class="menu-btn" id="menuThemeBtn" onclick="toggleTheme()">🌙</button>
+            <span class="menu-sep"></span>
+            <span class="menu-time" id="clock"></span>
+        </div>
+    </header>
+
+    <!-- ═══ DESKTOP: Window ═══ -->
+    <main class="window-wrapper">
+        <div class="window">
+            <div class="window-bar">
+                <div class="window-dots">
+                    <span class="dot dot-close"></span>
+                    <span class="dot dot-minimize"></span>
+                    <span class="dot dot-maximize"></span>
+                </div>
+                <span class="window-title-text" id="windowTitle">Acerca de</span>
             </div>
-            <p class="subtitle" data-es="Desarrollo | Redes | Bases de datos" data-en="Development | Networks | Databases">Desarrollo | Redes | Bases de datos</p>
-        </div>
-        
-        <div class="skills">
-            <span class="skill-tag" data-es="Servidor SQL" data-en="SQL Server">Servidor SQL</span>
-            <span class="skill-tag" data-es="Servidor IIS" data-en="IIS Server">Servidor IIS</span>
-            <span class="skill-tag">Python</span>
-            <span class="skill-tag" data-es="Cortafuegos" data-en="Firewall">Cortafuegos</span>
-            <span class="skill-tag" data-es="Páginas Web" data-en="Websites">Páginas Web</span>
-            <span class="skill-tag" data-es="Correos electrónicos" data-en="Emails">Correos electrónicos</span>
-            <span class="skill-tag" data-es="Dominios" data-en="Domains">Dominios</span>
-        </div>
+            <div class="window-content" id="windowContent">
+                <!-- Section: About -->
+                <section id="sec-about" class="section active">
+                    <div class="section-content">
+                        <div class="profile">
+                            <img src="https://avatars.githubusercontent.com/u/154456592?v=4" alt="Jacobo Arriaga" class="profile-pic">
+                            <h1 class="profile-name">Jacobo Arriaga</h1>
+                            <p class="profile-sub" data-es="Desarrollo · Redes · Bases de datos" data-en="Development · Networks · Databases">Desarrollo · Redes · Bases de datos</p>
+                            <div class="profile-social">
+                                <a href="https://github.com/jacoboarriaga" target="_blank">GitHub</a>
+                                <a href="https://x.com/jacoboarriag" target="_blank">X</a>
+                                <a href="https://www.linkedin.com/in/jacoboarriaga/" target="_blank">LinkedIn</a>
+                            </div>
+                        </div>
+                        <div class="skills-wrap">
+                            <p class="skills-title" data-es="Habilidades" data-en="Skills">Habilidades</p>
+                            <div class="skills-grid">
+                                <span class="skill-tag" data-es="Servidor SQL" data-en="SQL Server">Servidor SQL</span>
+                                <span class="skill-tag" data-es="Servidor IIS" data-en="IIS Server">Servidor IIS</span>
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag" data-es="Cortafuegos" data-en="Firewall">Cortafuegos</span>
+                                <span class="skill-tag" data-es="Páginas web" data-en="Websites">Páginas web</span>
+                                <span class="skill-tag" data-es="Correos electrónicos" data-en="Emails">Correos electrónicos</span>
+                                <span class="skill-tag" data-es="Dominios" data-en="Domains">Dominios</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
-        <!-- Sección Working On -->
-        <div class="working-on">
-            <h2 data-es="En Desarrollo" data-en="Working On">En Desarrollo</h2>
-            <div class="project-categories">
-                <div class="category">
-                    <div class="category-projects">
-                        <div class="project-card">
+                <!-- Section: Projects -->
+                <section id="sec-projects" class="section">
+                    <div class="section-content">
+                        <p class="projects-header" data-es="Proyectos Completados" data-en="Completed Projects">Proyectos Completados</p>
+
+                        <div class="project-category">
+                            <div class="project-category-title">🛒 Ecommerce</div>
+                            <div class="project-card">
+                                <h3>Pinturas Megacolor</h3>
+                                <p data-es="Distribuidor líder de pinturas, recubrimientos y accesorios. La solución perfecta para dar vida y protección a tus espacios."
+                                   data-en="Leading distributor of paints, coatings, and accessories. The perfect solution to bring life and protection to your spaces.">
+                                   Distribuidor líder de pinturas, recubrimientos y accesorios. La solución perfecta para dar vida y protección a tus espacios.
+                                </p>
+                                <a href="https://pinturasmegacolor.com" target="_blank" data-es="Ver proyecto" data-en="View project">Ver proyecto</a>
+                            </div>
+                        </div>
+
+                        <div class="project-category">
+                            <div class="project-category-title">🌐 Sitios Web</div>
+                            <div class="project-card">
+                                <h3>Palma's Carpentry</h3>
+                                <p data-es="Carpintería fina y soluciones personalizadas. Transformamos tus ideas en piezas duraderas y funcionales."
+                                   data-en="Fine woodworking and custom solutions. We transform your ideas into durable and functional pieces.">
+                                   Carpintería fina y soluciones personalizadas. Transformamos tus ideas en piezas duraderas y funcionales.
+                                </p>
+                                <a href="https://palmacarpentry.com" target="_blank" data-es="Ver proyecto" data-en="View project">Ver proyecto</a>
+                            </div>
+                            <div class="project-card">
+                                <h3>Aplicaciones ProColor</h3>
+                                <p data-es="Plataforma web para la gestión y consulta de aplicaciones especializadas. Soluciones innovadoras para optimizar procesos empresariales."
+                                   data-en="Web platform for managing and consulting specialized applications. Innovative solutions to optimize business processes.">
+                                   Plataforma web para la gestión y consulta de aplicaciones especializadas. Soluciones innovadoras para optimizar procesos empresariales.
+                                </p>
+                                <a href="https://aplicacionesprocolor.com" target="_blank" data-es="Ver proyecto" data-en="View project">Ver proyecto</a>
+                            </div>
+                        </div>
+
+                        <div class="project-category">
+                            <div class="project-category-title">📱 Aplicaciones</div>
+                            <div class="project-card">
+                                <h3>Expense Manager</h3>
+                                <p data-es="Gestor de gastos desarrollado con Python y SQL Server. Herramienta eficiente para el control financiero personal."
+                                   data-en="Expense manager built with Python and SQL Server. An efficient tool for personal financial control.">
+                                   Gestor de gastos desarrollado con Python y SQL Server. Herramienta eficiente para el control financiero personal.
+                                </p>
+                                <a href="https://github.com/jacoboesv/PyExpenseManager" target="_blank" data-es="Ver proyecto" data-en="View project">Ver proyecto</a>
+                            </div>
+                            <div class="project-card">
+                                <h3>AproMan</h3>
+                                <p data-es="Sistema de gestión de proyectos para optimizar la planificación, seguimiento y ejecución de proyectos."
+                                   data-en="Project management system to optimize planning, tracking, and project execution.">
+                                   Sistema de gestión de proyectos para optimizar la planificación, seguimiento y ejecución de proyectos.
+                                </p>
+                                <a href="#" target="_blank" data-es="Ver proyecto" data-en="View project">Ver proyecto</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section: Working On -->
+                <section id="sec-working" class="section">
+                    <div class="section-content">
+                        <p class="working-header" data-es="En Desarrollo" data-en="Working On">En Desarrollo</p>
+                        <div class="working-card">
+                            <span class="working-badge" data-es="Próximamente" data-en="Coming Soon">Próximamente</span>
                             <h3>Brutal.sv</h3>
-                            <p class="project-desc" 
-                                data-es="Proyecto en desarrollo. Solución innovadora diseñada para optimizar y revolucionar tu experiencia digital." 
-                                data-en="Project under development. Innovative solution designed to optimize and revolutionize your digital experience.">
-                                Proyecto en desarrollo. Solución innovadora diseñada para optimizar y revolucionar tu experiencia digital.
+                            <p data-es="Proyecto en desarrollo. Solución innovadora diseñada para optimizar y revolucionar tu experiencia digital."
+                               data-en="Project under development. Innovative solution designed to optimize and revolutionize your digital experience.">
+                               Proyecto en desarrollo. Solución innovadora diseñada para optimizar y revolucionar tu experiencia digital.
                             </p>
-                            <a href="#" target="_blank" class="project-link" data-es="Próximamente" data-en="Coming soon">Próximamente</a>
                         </div>
                     </div>
-                </div>
+                </section>
             </div>
         </div>
+    </main>
 
-        <div class="projects">
-            <h2 data-es="Proyectos Completados" data-en="Completed Projects">Proyectos Completados</h2>
-            
-            <div class="project-categories">
-                <!-- Categoría Ecommerce -->
-                <div class="category">
-                    <div class="category-title" data-es="🛒 Ecommerce" data-en="🛒 Ecommerce">🛒 Ecommerce</div>
-                    <div class="category-projects">
-                        <div class="project-card">
-                            <h3>Pinturas Megacolor</h3>
-                            <p class="project-desc" 
-                                data-es="Pinturas Megacolor: Calidad y Color para Cada Proyecto. Distribuidor líder de pinturas, recubrimientos y accesorios. La solución perfecta para dar vida y protección a tus espacios." 
-                                data-en="Pinturas Megacolor: Quality and Color for Every Project. Leading distributor of paints, coatings, and accessories. The perfect solution to bring life and protection to your spaces.">
-                                Pinturas Megacolor: Calidad y Color para Cada Proyecto. Distribuidor líder de pinturas, recubrimientos y accesorios. La solución perfecta para dar vida y protección a tus espacios.
-                            </p>
-                            <a href="https://pinturasmegacolor.com" target="_blank" class="project-link" data-es="Ver proyecto" data-en="View project">Ver proyecto</a>
-                        </div>
-                    </div>
-                </div>
+    <!-- ═══ DESKTOP: Dock ═══ -->
+    <nav class="dock" id="dock">
+        <button class="dock-item active" data-section="about">
+            <span class="dock-icon">👤</span>
+            <span class="dock-label" data-es="Sobre mí" data-en="About">Sobre mí</span>
+        </button>
+        <span class="dock-sep"></span>
+        <button class="dock-item" data-section="projects">
+            <span class="dock-icon">📁</span>
+            <span class="dock-label" data-es="Proyectos" data-en="Projects">Proyectos</span>
+        </button>
+        <span class="dock-sep"></span>
+        <button class="dock-item" data-section="working">
+            <span class="dock-icon">🚧</span>
+            <span class="dock-label" data-es="En desarrollo" data-en="Working">En desarrollo</span>
+        </button>
+    </nav>
 
-                <!-- Categoría Websites -->
-                <div class="category">
-                    <div class="category-title" data-es="🌐 Sitios Web" data-en="🌐 Websites">🌐 Sitios Web</div>
-                    <div class="category-projects">
-                        <div class="project-card">
-                            <h3>Palma´s Carpentry</h3>
-                            <p class="project-desc" 
-                                data-es="Palma's Carpentry: Carpintería Fina y Soluciones Personalizadas. Transformamos tus ideas en piezas duraderas y funcionales, utilizando materiales de primera. Desde muebles a medida hasta instalaciones completas, tu proyecto está en manos expertas." 
-                                data-en="Palma's Carpentry: Fine Woodworking and Custom Solutions. We transform your ideas into durable and functional pieces, using premium materials. From custom-made furniture to complete installations, your project is in expert hands.">
-                                Palma's Carpentry: Carpintería Fina y Soluciones Personalizadas. Transformamos tus ideas en piezas duraderas y funcionales, utilizando materiales de primera. Desde muebles a medida hasta instalaciones completas, tu proyecto está en manos expertas.
-                            </p>
-                            <a href="https://palmacarpentry.com" target="_blank" class="project-link" data-es="Ver proyecto" data-en="View project">Ver proyecto</a>
-                        </div>
-                        <div class="project-card">
-                            <h3>Aplicaciones ProColor</h3>
-                            <p class="project-desc" 
-                                data-es="Plataforma web para la gestión y consulta de aplicaciones especializadas. Soluciones innovadoras para optimizar procesos empresariales." 
-                                data-en="Web platform for managing and consulting specialized applications. Innovative solutions to optimize business processes.">
-                                Plataforma web para la gestión y consulta de aplicaciones especializadas. Soluciones innovadoras para optimizar procesos empresariales.
-                            </p>
-                            <a href="https://aplicacionesprocolor.com" target="_blank" class="project-link" data-es="Ver proyecto" data-en="View project">Ver proyecto</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Categoría Apps -->
-                <div class="category">
-                    <div class="category-title" data-es="📱 Aplicaciones" data-en="📱 Apps">📱 Aplicaciones</div>
-                    <div class="category-projects">
-                        <div class="project-card">
-                            <h3>Expense Manager</h3>
-                            <p class="project-desc" 
-                                data-es="Gestor de gastos desarrollado con Python y SQL Server. Una herramienta eficiente para el control financiero personal." 
-                                data-en="Expense manager developed with Python and SQL Server. An efficient tool for personal financial control.">
-                                Gestor de gastos desarrollado con Python y SQL Server. Una herramienta eficiente para el control financiero personal.
-                            </p>
-                            <a href="https://github.com/jacoboesv/PyExpenseManager" target="_blank" class="project-link" data-es="Ver proyecto" data-en="View project">Ver proyecto</a>
-                        </div>
-                        <div class="project-card">
-                            <h3>AproMan</h3>
-                            <p class="project-desc" 
-                                data-es="Sistema de gestión de proyectos desarrollado para optimizar la planificación, seguimiento y ejecución de proyectos. Herramienta integral para equipos colaborativos." 
-                                data-en="Project management system developed to optimize planning, tracking, and project execution. Comprehensive tool for collaborative teams.">
-                                Sistema de gestión de proyectos desarrollado para optimizar la planificación, seguimiento y ejecución de proyectos. Herramienta integral para equipos colaborativos.
-                            </p>
-                            <a href="#" target="_blank" class="project-link" data-es="Ver proyecto" data-en="View project">Ver proyecto</a>
-                        </div>
-                    </div>
-                </div>
+    <!-- ═══ MOBILE: App ═══ -->
+    <div class="mobile-app">
+        <div class="app-status">
+            <span id="mobileClock">12:00</span>
+            <span></span>
+        </div>
+        <div class="app-header">
+            <span class="app-header-title" id="mobileTitle">Sobre mí</span>
+            <div class="app-header-actions">
+                <button class="app-header-btn" id="mobileLangBtn" onclick="toggleLanguage()">EN</button>
+                <button class="app-header-btn" id="mobileThemeBtn" onclick="toggleTheme()">🌙</button>
             </div>
         </div>
+        <div class="app-content" id="appContent">
+            <!-- Same sections rendered via JS clone or we just use them with show/hide -->
+            <!-- We'll use the same sections approach, moved into here via DOM or shown/hidden -->
+        </div>
+        <nav class="tab-bar" id="tabBar">
+            <button class="tab-item active" data-section="about">
+                <span class="tab-icon">👤</span>
+                <span class="tab-label" data-es="Sobre mí" data-en="About">Sobre mí</span>
+            </button>
+            <button class="tab-item" data-section="projects">
+                <span class="tab-icon">📁</span>
+                <span class="tab-label" data-es="Proyectos" data-en="Projects">Proyectos</span>
+            </button>
+            <button class="tab-item" data-section="working">
+                <span class="tab-icon">🚧</span>
+                <span class="tab-label" data-es="En desarrollo" data-en="Working">En desarrollo</span>
+            </button>
+        </nav>
+    </div>
 
     <script>
-        // Crear estrellas
-        const starsContainer = document.getElementById('stars');
-        for (let i = 0; i < 100; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.style.width = Math.random() * 3 + 'px';
-            star.style.height = star.style.width;
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.animationDelay = Math.random() * 3 + 's';
-            starsContainer.appendChild(star);
-        }
+        // ── Stars ──
+        (function createStars() {
+            const container = document.getElementById('stars');
+            for (let i = 0; i < 80; i++) {
+                const s = document.createElement('div');
+                s.className = 'star';
+                const size = Math.random() * 2.5 + 1;
+                s.style.width = size + 'px';
+                s.style.height = s.style.width;
+                s.style.left = Math.random() * 100 + '%';
+                s.style.top = Math.random() * 100 + '%';
+                s.style.animationDelay = Math.random() * 4 + 's';
+                s.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                container.appendChild(s);
+            }
+        })();
 
-        // Sistema de tema oscuro/claro
-        let isDarkMode = false;
-        const themeBtn = document.getElementById('themeBtn');
-
-        // Detectar preferencia del sistema
+        // ── Theme ──
+        let isDark = false;
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            isDarkMode = true;
-            document.body.classList.add('dark-mode');
-            themeBtn.textContent = '☀️';
+            isDark = true;
+            document.body.classList.add('dark');
         }
+        // Sync theme buttons with initial state
+        document.querySelectorAll('#menuThemeBtn, #mobileThemeBtn').forEach(b => b.textContent = isDark ? '☀️' : '🌙');
 
         function toggleTheme() {
-            isDarkMode = !isDarkMode;
-            document.body.classList.toggle('dark-mode');
-            themeBtn.textContent = isDarkMode ? '☀️' : '🌙';
+            isDark = !isDark;
+            document.body.classList.toggle('dark', isDark);
+            const btns = document.querySelectorAll('#menuThemeBtn, #mobileThemeBtn');
+            btns.forEach(b => b.textContent = isDark ? '☀️' : '🌙');
         }
 
-        // Sistema de idiomas
+        // ── Language ──
         let currentLang = 'es';
 
         window.addEventListener('DOMContentLoaded', () => {
-            const browserLang = navigator.language || navigator.userLanguage;
-            if (browserLang.startsWith('en')) {
-                currentLang = 'en';
-                updateLanguage();
-            }
+            const bl = (navigator.language || navigator.userLanguage || '').substring(0, 2);
+            if (bl === 'en') { currentLang = 'en'; updateLanguage(); }
+            updateClock();
+            setInterval(updateClock, 1000);
+            setupMobileSections();
         });
 
         function toggleLanguage() {
@@ -573,17 +634,78 @@
         }
 
         function updateLanguage() {
-            const elements = document.querySelectorAll('[data-es][data-en]');
-            const langBtn = document.getElementById('langBtn');
-            
-            elements.forEach(el => {
-                el.textContent = el.getAttribute(`data-${currentLang}`);
+            document.querySelectorAll('[data-es][data-en]').forEach(el => {
+                el.textContent = el.getAttribute('data-' + currentLang);
+            });
+            document.documentElement.lang = currentLang;
+            const btns = document.querySelectorAll('#menuLangBtn, #mobileLangBtn');
+            btns.forEach(b => b.textContent = currentLang === 'es' ? 'EN' : 'ES');
+        }
+
+        // ── Clock ──
+        function updateClock() {
+            const now = new Date();
+            const opts = { hour: '2-digit', minute: '2-digit' };
+            const time = now.toLocaleTimeString(currentLang === 'es' ? 'es-SV' : 'en-US', opts);
+            const day = now.toLocaleDateString(currentLang === 'es' ? 'es-SV' : 'en-US', { weekday: 'short' });
+            const formatted = day + ' ' + time;
+            const el = document.getElementById('clock');
+            if (el) el.textContent = formatted;
+            const mc = document.getElementById('mobileClock');
+            if (mc) mc.textContent = time;
+        }
+
+        // ── Section Navigation ──
+        function switchSection(sectionId) {
+            // Desktop sections (sec-about, sec-projects, sec-working)
+            document.querySelectorAll('#windowContent .section').forEach(s => {
+                s.classList.toggle('active', s.id === 'sec-' + sectionId);
+            });
+            // Mobile sections (mob-sec-about, mob-sec-projects, mob-sec-working)
+            document.querySelectorAll('#appContent .section').forEach(s => {
+                s.classList.toggle('active', s.id === 'mob-sec-' + sectionId);
             });
 
-            langBtn.textContent = currentLang === 'es' ? 'EN' : 'ES';
-            document.documentElement.lang = currentLang;
+            // Nav items
+            document.querySelectorAll('.dock-item, .tab-item').forEach(item => {
+                item.classList.toggle('active', item.dataset.section === sectionId);
+            });
+
+            // Titles
+            const t = currentLang === 'es'
+                ? { about: 'Acerca de', projects: 'Proyectos', working: 'En desarrollo' }
+                : { about: 'About', projects: 'Projects', working: 'Working On' };
+            const mt = currentLang === 'es'
+                ? { about: 'Sobre mí', projects: 'Proyectos', working: 'En desarrollo' }
+                : { about: 'About', projects: 'Projects', working: 'Working' };
+            const wt = document.getElementById('windowTitle');
+            if (wt) wt.textContent = t[sectionId];
+            const mh = document.getElementById('mobileTitle');
+            if (mh) mh.textContent = mt[sectionId];
+
+            // Scroll
+            const wc = document.getElementById('windowContent');
+            if (wc) wc.scrollTop = 0;
+            const ac = document.getElementById('appContent');
+            if (ac) ac.scrollTop = 0;
+        }
+
+        // Nav clicks
+        document.querySelectorAll('.dock-item, .tab-item').forEach(item => {
+            item.addEventListener('click', () => switchSection(item.dataset.section));
+        });
+
+        // ── Mobile: clone sections into app content ──
+        function setupMobileSections() {
+            const appContent = document.getElementById('appContent');
+            if (!appContent) return;
+            document.querySelectorAll('#windowContent .section').forEach(sec => {
+                const clone = sec.cloneNode(true);
+                clone.id = 'mob-' + sec.id;
+                appContent.appendChild(clone);
+            });
+            updateLanguage();
         }
     </script>
-    
 </body>
 </html>
