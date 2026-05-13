@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Jacobo Arriaga</title>
+    <title>Jacobo Arriaga — Ingeniero en Sistemas</title>
+    <meta name="description" content="Portafolio de Jacobo Arriaga, Ingeniero en Sistemas apasionado por la tecnología, el desarrollo web, redes y bases de datos.">
+    <meta property="og:title" content="Jacobo Arriaga — Ingeniero en Sistemas">
+    <meta property="og:description" content="Transformo ideas en soluciones digitales. Desarrollo, redes y bases de datos.">
+    <meta property="og:image" content="https://avatars.githubusercontent.com/u/154456592?v=4">
+    <meta property="og:url" content="https://jacoboarriaga.github.io">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
     <link rel="icon" href="https://avatars.githubusercontent.com/u/154456592?v=4">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,7 +31,7 @@
             --bg-card: rgba(0,0,0,0.03);
             --border-card: rgba(0,0,0,0.06);
             --text: #1a1a1e;
-            --text-sec: #7c7c82;
+            --text-sec: #63636a;
             --text-dim: #b0b0b6;
         }
 
@@ -34,45 +41,8 @@
             font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
             background: var(--bg);
             color: var(--text);
-            transition: background 0.4s ease;
+            transition: background 0.4s ease, color 0.4s ease;
             -webkit-font-smoothing: antialiased;
-        }
-
-        /* ── Ambient background (simula video sin peso) ── */
-        .ambient {
-            position: fixed; inset: 0; z-index: -1;
-            overflow: hidden; pointer-events: none;
-        }
-        .ambient orb {
-            position: absolute; border-radius: 50%;
-            filter: blur(120px); opacity: 0.15;
-            animation: drift 20s ease-in-out infinite alternate;
-        }
-        .ambient .o1 {
-            width: 600px; height: 600px;
-            background: var(--accent);
-            top: -20%; left: -10%;
-            animation-duration: 25s;
-        }
-        .ambient .o2 {
-            width: 500px; height: 500px;
-            background: var(--accent2);
-            bottom: -20%; right: -10%;
-            animation-duration: 20s;
-            animation-delay: -5s;
-        }
-        .ambient .o3 {
-            width: 400px; height: 400px;
-            background: var(--accent);
-            top: 50%; left: 50%;
-            animation-duration: 18s;
-            animation-delay: -10s;
-        }
-        @keyframes drift {
-            0% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(40px, -30px) scale(1.1); }
-            66% { transform: translate(-20px, 40px) scale(0.9); }
-            100% { transform: translate(30px, -20px) scale(1.05); }
         }
 
         .slide {
@@ -87,7 +57,13 @@
         .slide-inner {
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
-            width: 100%; max-width: 500px;
+            width: 100%; max-width: 520px;
+        }
+
+        /* ── Accent line decoration ── */
+        .accent-line {
+            width: 40px; height: 3px; border-radius: 2px;
+            background: var(--accent); margin-bottom: 24px;
         }
 
         /* ── Top bar ── */
@@ -101,11 +77,12 @@
         .top-bar-name { font-size: 14px; font-weight: 600; opacity: 0.5; letter-spacing: -0.01em; }
         .top-bar-actions { display: flex; gap: 6px; }
         .top-btn {
-            background: none; border: none; font-size: 15px; cursor: pointer;
-            padding: 6px 10px; border-radius: 8px; color: var(--text);
-            opacity: 0.5; transition: all 0.2s ease;
+            background: var(--bg-card); border: 1px solid var(--border-card);
+            font-size: 13px; cursor: pointer; font-weight: 500;
+            padding: 7px 14px; border-radius: 8px; color: var(--text);
+            transition: all 0.25s ease; font-family: inherit;
         }
-        .top-btn:hover { opacity: 1; background: var(--bg-card); }
+        .top-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
 
         /* ── Dots ── */
         .dots {
@@ -113,80 +90,110 @@
             z-index: 50; display: flex; flex-direction: column; gap: 8px;
         }
         .dot {
-            width: 7px; height: 7px; border-radius: 50%;
+            width: 8px; height: 8px; border-radius: 50%;
             background: var(--text-dim); border: none; cursor: pointer;
             transition: all 0.3s ease; padding: 0;
         }
-        .dot.active { background: var(--accent); transform: scale(1.4); }
+        .dot.active { background: var(--accent); transform: scale(1.5); }
+        .dot:hover { background: var(--accent); opacity: 0.5; }
 
         .counter {
             position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
-            z-index: 50; font-size: 11px; font-weight: 500;
-            color: var(--text-dim); letter-spacing: 0.04em;
+            z-index: 50; font-size: 12px; font-weight: 500;
+            color: var(--text-dim);
+            background: var(--bg-card); padding: 5px 16px;
+            border-radius: 100px; border: 1px solid var(--border-card);
+            letter-spacing: 0.03em;
         }
 
         .scroll-hint {
-            position: absolute; bottom: 70px; left: 50%;
+            position: absolute; bottom: 72px; left: 50%;
             transform: translateX(-50%);
-            font-size: 18px; opacity: 0.25;
-            animation: bob 2s ease-in-out infinite;
+            font-size: 16px; opacity: 0.25;
+            animation: bob 2.5s ease-in-out infinite;
         }
         @keyframes bob {
             0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(6px); }
+            50% { transform: translateX(-50%) translateY(8px); }
         }
 
-        /* ══ SLIDE 1 — HERO + SKILLS ══ */
+        /* ══ SLIDE 1 — HERO ══ */
         .hero-img {
-            width: 100px; height: 100px; border-radius: 50%;
+            width: 110px; height: 110px; border-radius: 50%;
             object-fit: cover; border: 3px solid var(--accent);
             box-shadow: 0 8px 40px rgba(184,101,58,0.15);
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
-        .hero h1 { font-size: 2.2em; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 4px; }
+        .hero h1 { font-size: 2.2em; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 6px; }
         @media (min-width: 600px) { .hero h1 { font-size: 3em; } }
-        .hero-sub { font-size: 0.95em; color: var(--accent); margin-bottom: 20px; opacity: 0.85; }
-        .hero-links { display: flex; gap: 10px; margin-bottom: 24px; }
-        .hero-links a {
-            padding: 7px 16px; border-radius: 100px; font-size: 13px; font-weight: 600;
-            border: 1px solid var(--border-card); transition: all 0.25s ease;
-            color: var(--text);
+        .hero-tagline {
+            font-size: 0.9em; color: var(--accent); font-weight: 500;
+            margin-bottom: 10px; letter-spacing: -0.01em;
         }
-        .hero-links a:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+        .hero-sub {
+            font-size: 0.88em; color: var(--text-sec);
+            margin-bottom: 32px; line-height: 1.5;
+        }
+        .hero-links { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; justify-content: center; }
+        .hero-links a {
+            padding: 9px 22px; border-radius: 100px; font-size: 13px; font-weight: 600;
+            background: var(--accent); color: #fff; border: none;
+            transition: all 0.25s ease;
+        }
+        .hero-links a:hover { opacity: 0.85; transform: scale(1.04); }
+        .hero-links .outline {
+            background: transparent; color: var(--text);
+            border: 1px solid var(--border-card);
+        }
+        .hero-links .outline:hover { background: var(--bg-card); border-color: var(--accent); }
 
         .hero-skills {
             display: flex; justify-content: center; flex-wrap: wrap; gap: 8px;
-            max-width: 380px;
+            max-width: 400px;
         }
         .hero-skills span {
             background: var(--bg-card); border: 1px solid var(--border-card);
-            padding: 8px 18px; border-radius: 100px; font-size: 13px; font-weight: 500;
+            padding: 8px 18px; border-radius: 100px; font-size: 12px; font-weight: 500;
             transition: all 0.25s ease;
         }
-        .hero-skills span:hover { border-color: var(--accent); }
+        .hero-skills span:hover { border-color: var(--accent); background: rgba(184,101,58,0.06); }
 
         /* ══ PROJECT SLIDES ══ */
         .project-slide { text-align: center; }
         .project-cat {
             display: inline-block;
             font-size: 11px; font-weight: 600; text-transform: uppercase;
-            letter-spacing: 0.06em; color: var(--text-dim);
-            border: 1px solid var(--border-card);
+            letter-spacing: 0.06em;
+            background: var(--bg-card); border: 1px solid var(--border-card);
+            color: var(--text-sec);
             padding: 5px 14px; border-radius: 100px;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
         .project-slide h2 {
-            font-size: 2em; font-weight: 700; letter-spacing: -0.02em;
-            margin-bottom: 12px; line-height: 1.15;
+            font-size: 2.2em; font-weight: 700; letter-spacing: -0.02em;
+            margin-bottom: 10px; line-height: 1.15;
         }
-        @media (min-width: 600px) { .project-slide h2 { font-size: 2.6em; } }
-        .project-slide p {
-            font-size: 14px; color: var(--text-sec); line-height: 1.6;
-            max-width: 400px; margin-bottom: 24px;
+        @media (min-width: 600px) { .project-slide h2 { font-size: 2.8em; } }
+        .project-desc {
+            font-size: 14px; color: var(--text-sec); line-height: 1.7;
+            max-width: 420px; margin-bottom: 6px;
+        }
+        .project-result {
+            font-size: 13px; color: var(--accent); font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .project-stack {
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 6px;
+            margin-bottom: 28px;
+        }
+        .project-stack span {
+            font-size: 11px; font-weight: 500; padding: 4px 12px;
+            border-radius: 100px; background: var(--bg-card);
+            border: 1px solid var(--border-card); color: var(--text-sec);
         }
         .project-slide a {
             display: inline-block;
-            padding: 10px 28px; border-radius: 100px;
+            padding: 12px 32px; border-radius: 100px;
             font-size: 14px; font-weight: 600;
             background: var(--accent); color: #fff;
             transition: all 0.2s ease;
@@ -201,54 +208,70 @@
         }
         @media (min-width: 600px) { .cta h2 { font-size: 2.6em; } }
         .cta p {
-            font-size: 14px; color: var(--text-sec); line-height: 1.6;
-            max-width: 400px; margin-bottom: 24px;
+            font-size: 14px; color: var(--text-sec); line-height: 1.7;
+            max-width: 400px; margin-bottom: 28px;
         }
-        .cta-badge {
-            display: inline-block; font-size: 11px; font-weight: 600;
-            padding: 5px 14px; border-radius: 100px;
-            background: var(--accent); color: #fff;
-            margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.06em;
-        }
-        .cta-links {
-            display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
-            margin-top: 28px;
-        }
-        .cta-links a {
-            padding: 10px 24px; border-radius: 100px; font-size: 14px; font-weight: 600;
-            border: 1px solid var(--border-card); transition: all 0.25s ease;
-            color: var(--text);
-        }
-        .cta-links a:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
-        .cta-links .primary {
-            background: var(--accent); color: #fff; border-color: var(--accent);
-        }
-        .cta-links .primary:hover { opacity: 0.85; }
         .avail {
-            font-size: 13px; color: var(--accent); font-weight: 500;
-            padding: 6px 16px; border: 1px solid var(--accent);
-            border-radius: 100px; margin-bottom: 8px; opacity: 0.85;
+            font-size: 13px; font-weight: 600; color: #fff;
+            padding: 8px 20px; border-radius: 100px;
+            background: var(--accent); margin-bottom: 24px;
         }
+        .form-wrap p {
+            font-size: 14px; color: var(--text-sec);
+            margin-bottom: 16px;
+        }
+        .form-row {
+            display: flex; gap: 10px;
+            width: 100%; max-width: 380px;
+            margin: 0 auto 10px;
+        }
+        .form-row input {
+            flex: 1; min-width: 0;
+            padding: 14px 16px; border-radius: 10px;
+            border: 1px solid var(--border-card);
+            background: var(--bg-card);
+            color: var(--text);
+            font-size: 15px; font-family: inherit;
+            outline: none; transition: border 0.2s ease;
+        }
+        .form-row input:focus { border-color: var(--accent); }
+        .form-row input::placeholder { color: var(--text-dim); }
+        .form-btn {
+            width: 100%; max-width: 380px;
+            padding: 14px; border-radius: 10px;
+            border: none; background: var(--accent); color: #fff;
+            font-size: 15px; font-weight: 600; font-family: inherit;
+            cursor: pointer; transition: opacity 0.2s ease;
+        }
+        .form-btn:hover { opacity: 0.85; }
+        .to-top {
+            display: block; margin: 28px auto 0;
+            background: none; border: none;
+            color: var(--text-sec); font-size: 13px;
+            font-family: inherit; cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .to-top:hover { color: var(--accent); }
 
         @media (max-width: 480px) {
-            .slide { padding: 60px 20px 40px; }
+            .slide { padding: 60px 16px 40px; }
             .hero h1 { font-size: 1.7em; }
-            .hero-img { width: 80px; height: 80px; }
-            .project-slide h2 { font-size: 1.5em; }
+            .hero-img { width: 90px; height: 90px; }
+            .hero-tagline { font-size: 0.82em; }
+            .hero-links { gap: 8px; }
+            .hero-links a { padding: 8px 16px; font-size: 12px; }
+            .hero-skills span { padding: 6px 14px; font-size: 11px; }
+            .project-slide h2 { font-size: 1.6em; }
+            .project-slide a { padding: 10px 24px; font-size: 13px; }
             .cta h2 { font-size: 1.5em; }
+            .form-row input { padding: 12px 14px; font-size: 14px; }
+            .form-btn { padding: 12px; font-size: 14px; }
             .dots { right: 8px; gap: 6px; }
-            .dot { width: 5px; height: 5px; }
+            .dot { width: 6px; height: 6px; }
         }
     </style>
 </head>
 <body>
-    <!-- Ambient background (zero-weight "video" feel) -->
-    <div class="ambient">
-        <orb class="o1"></orb>
-        <orb class="o2"></orb>
-        <orb class="o3"></orb>
-    </div>
-
     <!-- Top bar -->
     <div class="top-bar">
         <span class="top-bar-name">✦ Jacobo Arriaga</span>
@@ -260,29 +283,32 @@
 
     <!-- Dots -->
     <div class="dots" id="dots"></div>
-
-    <!-- Counter -->
     <div class="counter" id="counter">1 / 7</div>
 
-    <!-- ══ 1 — HERO + SKILLS ══ -->
+    <!-- ══ 1 — HERO ══ -->
     <section class="slide hero" data-index="0">
         <div class="slide-inner">
-            <img src="https://avatars.githubusercontent.com/u/154456592?v=4" alt="" class="hero-img">
+            <img src="https://avatars.githubusercontent.com/u/154456592?v=4" alt="Jacobo Arriaga" class="hero-img">
             <h1>Jacobo Arriaga</h1>
-            <p class="hero-sub" data-es="Desarrollo · Redes · Bases de datos" data-en="Development · Networks · Databases">Desarrollo · Redes · Bases de datos</p>
+            <p class="hero-tagline" data-es="Ingeniero en Sistemas" data-en="Systems Engineer">Ingeniero en Sistemas</p>
+            <p class="hero-sub" data-es="Apasionado por la tecnología, el desarrollo web, redes y bases de datos. Transformo ideas en soluciones digitales."
+               data-en="Passionate about technology, web development, networks and databases. Turning ideas into digital solutions.">
+               Apasionado por la tecnología, el desarrollo web, redes y bases de datos. Transformo ideas en soluciones digitales.
+            </p>
             <div class="hero-links">
                 <a href="https://github.com/jacoboarriaga" target="_blank">GitHub</a>
-                <a href="https://x.com/jacoboarriag" target="_blank">X</a>
                 <a href="https://www.linkedin.com/in/jacoboarriaga/" target="_blank">LinkedIn</a>
+                <a href="https://x.com/jacoboarriag" target="_blank">X</a>
             </div>
+            <div class="accent-line"></div>
             <div class="hero-skills">
-                <span data-es="Servidor SQL" data-en="SQL Server">Servidor SQL</span>
-                <span data-es="Servidor IIS" data-en="IIS Server">Servidor IIS</span>
+                <span>SQL Server</span>
                 <span>Python</span>
-                <span data-es="Cortafuegos" data-en="Firewall">Cortafuegos</span>
-                <span data-es="Páginas web" data-en="Websites">Páginas web</span>
-                <span data-es="Correos electrónicos" data-en="Emails">Correos electrónicos</span>
-                <span data-es="Dominios" data-en="Domains">Dominios</span>
+                <span>IIS</span>
+                <span>Redes</span>
+                <span>DNS / Correos</span>
+                <span data-es="Infraestructura TI" data-en="IT Infrastructure">Infraestructura TI</span>
+                <span>WordPress</span>
             </div>
         </div>
         <div class="scroll-hint">↓</div>
@@ -293,11 +319,19 @@
         <div class="slide-inner">
             <div class="project-cat">🛒 Ecommerce</div>
             <h2>Pinturas Megacolor</h2>
-            <p data-es="Distribuidor líder de pinturas, recubrimientos y accesorios. Calidad y color para cada proyecto."
-               data-en="Leading distributor of paints, coatings and accessories. Quality and color for every project.">
-               Distribuidor líder de pinturas, recubrimientos y accesorios. Calidad y color para cada proyecto.
+            <p class="project-desc" data-es="Tienda en línea completa con catálogo interactivo, carrito de compras, gestión de inventario y panel administrativo. Optimicé la infraestructura migrando a un entorno más eficiente y seguro."
+               data-en="Full online store with interactive catalog, shopping cart, inventory management and admin panel. Optimized the infrastructure migrating to a more efficient and secure environment.">
+               Tienda en línea completa con catálogo interactivo, carrito de compras, gestión de inventario y panel administrativo. Optimicé la infraestructura migrando a un entorno más eficiente y seguro.
             </p>
-            <a href="https://pinturasmegacolor.com" target="_blank" data-es="Ver proyecto →" data-en="View project →">Ver proyecto →</a>
+            <p class="project-result" data-es="Impacto: Mayor alcance y ventas 24/7" data-en="Impact: Greater reach and 24/7 sales">Impacto: Mayor alcance y ventas 24/7</p>
+            <div class="project-stack">
+                <span>Python</span>
+                <span>Django</span>
+                <span>SQL Server</span>
+                <span>IIS</span>
+                <span>Cloudflare</span>
+            </div>
+            <a href="https://pinturasmegacolor.com" target="_blank" data-es="Visitar sitio →" data-en="Visit site →">Visitar sitio →</a>
         </div>
         <div class="scroll-hint">↓</div>
     </section>
@@ -307,11 +341,18 @@
         <div class="slide-inner">
             <div class="project-cat">🌐 Sitio Web</div>
             <h2>Palma's Carpentry</h2>
-            <p data-es="Carpintería fina y soluciones personalizadas. Transformamos ideas en piezas duraderas."
-               data-en="Fine woodworking and custom solutions. Transforming ideas into durable pieces.">
-               Carpintería fina y soluciones personalizadas. Transformamos ideas en piezas duraderas.
+            <p class="project-desc" data-es="Sitio web profesional con portafolio visual de proyectos, galería de trabajos y formulario de cotización. Diseñado para convertir visitantes en clientes potenciales."
+               data-en="Professional website with visual project portfolio, work gallery and quote form. Designed to turn visitors into potential clients.">
+               Sitio web profesional con portafolio visual de proyectos, galería de trabajos y formulario de cotización. Diseñado para convertir visitantes en clientes potenciales.
             </p>
-            <a href="https://palmacarpentry.com" target="_blank" data-es="Ver proyecto →" data-en="View project →">Ver proyecto →</a>
+            <p class="project-result" data-es="Impacto: Presencia digital profesional" data-en="Impact: Professional digital presence">Impacto: Presencia digital profesional</p>
+            <div class="project-stack">
+                <span>HTML / CSS</span>
+                <span>JavaScript</span>
+                <span>Hostinger</span>
+                <span>DNS</span>
+            </div>
+            <a href="https://palmacarpentry.com" target="_blank" data-es="Visitar sitio →" data-en="Visit site →">Visitar sitio →</a>
         </div>
         <div class="scroll-hint">↓</div>
     </section>
@@ -321,11 +362,18 @@
         <div class="slide-inner">
             <div class="project-cat">🌐 Sitio Web</div>
             <h2>Aplicaciones ProColor</h2>
-            <p data-es="Plataforma web para la gestión y consulta de aplicaciones especializadas."
-               data-en="Web platform for managing and consulting specialized applications.">
-               Plataforma web para la gestión y consulta de aplicaciones especializadas.
+            <p class="project-desc" data-es="Plataforma web para la gestión y consulta de aplicaciones especializadas. Automatización de procesos internos que optimizó los tiempos de respuesta del equipo."
+               data-en="Web platform for managing and consulting specialized applications. Internal process automation that optimized team response times.">
+               Plataforma web para la gestión y consulta de aplicaciones especializadas. Automatización de procesos internos que optimizó los tiempos de respuesta del equipo.
             </p>
-            <a href="https://aplicacionesprocolor.com" target="_blank" data-es="Ver proyecto →" data-en="View project →">Ver proyecto →</a>
+            <p class="project-result" data-es="Impacto: Procesos internos optimizados" data-en="Impact: Streamlined internal processes">Impacto: Procesos internos optimizados</p>
+            <div class="project-stack">
+                <span>WordPress</span>
+                <span>PHP</span>
+                <span>MySQL</span>
+                <span>IIS</span>
+            </div>
+            <a href="https://aplicacionesprocolor.com" target="_blank" data-es="Visitar sitio →" data-en="Visit site →">Visitar sitio →</a>
         </div>
         <div class="scroll-hint">↓</div>
     </section>
@@ -335,11 +383,18 @@
         <div class="slide-inner">
             <div class="project-cat">📱 App</div>
             <h2>Expense Manager</h2>
-            <p data-es="Gestor de gastos con Python y SQL Server. Control financiero personal eficiente."
-               data-en="Expense manager with Python and SQL Server. Efficient personal financial control.">
-               Gestor de gastos con Python y SQL Server. Control financiero personal eficiente.
+            <p class="project-desc" data-es="Aplicación de escritorio para control financiero personal. Permite registrar ingresos y gastos, categorizar transacciones y generar reportes detallados para la toma de decisiones."
+               data-en="Desktop application for personal financial control. Register income and expenses, categorize transactions and generate detailed reports for decision making.">
+               Aplicación de escritorio para control financiero personal. Permite registrar ingresos y gastos, categorizar transacciones y generar reportes detallados para la toma de decisiones.
             </p>
-            <a href="https://github.com/jacoboesv/PyExpenseManager" target="_blank" data-es="Ver proyecto →" data-en="View project →">Ver proyecto →</a>
+            <p class="project-result" data-es="Impacto: Control financiero automatizado" data-en="Impact: Automated financial control">Impacto: Control financiero automatizado</p>
+            <div class="project-stack">
+                <span>Python</span>
+                <span>SQL Server</span>
+                <span>Tkinter</span>
+                <span>Git</span>
+            </div>
+            <a href="https://github.com/jacoboesv/PyExpenseManager" target="_blank" data-es="Ver repositorio →" data-en="View repo →">Ver repositorio →</a>
         </div>
         <div class="scroll-hint">↓</div>
     </section>
@@ -349,11 +404,18 @@
         <div class="slide-inner">
             <div class="project-cat">📱 App</div>
             <h2>AproMan</h2>
-            <p data-es="Sistema de gestión de proyectos para optimizar planificación, seguimiento y ejecución."
-               data-en="Project management system to optimize planning, tracking, and execution.">
-               Sistema de gestión de proyectos para optimizar planificación, seguimiento y ejecución.
+            <p class="project-desc" data-es="Sistema de gestión de proyectos con planificación de tareas, seguimiento en tiempo real, asignación de recursos y generación de reportes de productividad."
+               data-en="Project management system with task planning, real-time tracking, resource allocation and productivity report generation.">
+               Sistema de gestión de proyectos con planificación de tareas, seguimiento en tiempo real, asignación de recursos y generación de reportes de productividad.
             </p>
-            <a href="#" target="_blank" data-es="Ver proyecto →" data-en="View project →">Ver proyecto →</a>
+            <p class="project-result" data-es="Impacto: Equipos más organizados y eficientes" data-en="Impact: More organized and efficient teams">Impacto: Equipos más organizados y eficientes</p>
+            <div class="project-stack">
+                <span>Python</span>
+                <span>Flask</span>
+                <span>SQL Server</span>
+                <span>JavaScript</span>
+            </div>
+            <a href="https://github.com/jacoboarriaga" target="_blank" data-es="Ver repositorio →" data-en="View repo →">Ver repositorio →</a>
         </div>
         <div class="scroll-hint">↓</div>
     </section>
@@ -361,23 +423,26 @@
     <!-- ══ 7 — CTA ══ -->
     <section class="slide cta" data-index="6">
         <div class="slide-inner">
-            <div class="cta-badge" data-es="En Desarrollo" data-en="Working On">En Desarrollo</div>
-            <h2>Brutal.sv</h2>
-            <p data-es="Solución innovadora para optimizar y revolucionar tu experiencia digital."
-               data-en="Innovative solution to optimize and revolutionize your digital experience.">
-               Solución innovadora para optimizar y revolucionar tu experiencia digital.
+            <div class="accent-line"></div>
+            <h2 data-es="¿Trabajemos juntos?" data-en="Let's work together?">¿Trabajemos juntos?</h2>
+            <p data-es="Actualmente disponible para nuevos proyectos, colaboraciones o consultoría. Si tienes una idea en mente, hablemos."
+               data-en="Currently available for new projects, collaborations or consulting. If you have an idea in mind, let's talk.">
+               Actualmente disponible para nuevos proyectos, colaboraciones o consultoría. Si tienes una idea en mente, hablemos.
             </p>
             <div class="avail" id="avail"></div>
-            <div class="cta-links">
-                <a href="https://github.com/jacoboarriaga" target="_blank">GitHub</a>
-                <a href="https://www.linkedin.com/in/jacoboarriaga/" target="_blank">LinkedIn</a>
-                <a href="https://x.com/jacoboarriag" target="_blank">X</a>
+            <div class="form-wrap">
+                <p data-es="Déjame tu nombre y te escribo personalmente" data-en="Leave your name and I'll write to you personally">Déjame tu nombre y te escribo personalmente</p>
+                <div class="form-row">
+                    <input type="text" id="formName" placeholder="Nombre" data-es="Nombre" data-en="First name" autocomplete="given-name">
+                    <input type="text" id="formLast" placeholder="Apellido" data-es="Apellido" data-en="Last name" autocomplete="family-name">
+                </div>
+                <button class="form-btn" id="formBtn" data-es="Escríbeme →" data-en="Write me →">Escríbeme →</button>
             </div>
+            <button class="to-top" onclick="document.querySelector('.slide').scrollIntoView({behavior:'smooth'})" data-es="↑ Volver al inicio" data-en="↑ Back to top">↑ Volver al inicio</button>
         </div>
     </section>
 
     <script>
-        // ── Theme ──
         let isDark = true;
         if (matchMedia('(prefers-color-scheme: light)').matches) {
             isDark = false;
@@ -391,7 +456,6 @@
             document.getElementById('themeBtn').textContent = isDark ? '☀️' : '🌙';
         }
 
-        // ── Language ──
         let lang = 'es';
         const bl = (navigator.language || '').substring(0, 2);
         if (bl === 'en') { lang = 'en'; updateLang(); }
@@ -403,14 +467,40 @@
 
         function updateLang() {
             document.querySelectorAll('[data-es][data-en]').forEach(el => {
-                el.textContent = el.getAttribute('data-' + lang);
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = el.getAttribute('data-' + lang);
+                } else {
+                    el.textContent = el.getAttribute('data-' + lang);
+                }
             });
             document.getElementById('langBtn').textContent = lang === 'es' ? 'EN' : 'ES';
             document.documentElement.lang = lang;
             updateAvail();
         }
 
-        // ── Availability ──
+        // ── Contact form ──
+        const email = 'jacoboarriaga@email.com';
+        document.getElementById('formBtn').addEventListener('click', function() {
+            const name = document.getElementById('formName').value.trim();
+            const last = document.getElementById('formLast').value.trim();
+            if (!name || !last) {
+                if (!name) document.getElementById('formName').focus();
+                else document.getElementById('formLast').focus();
+                return;
+            }
+            const full = name + ' ' + last;
+            const subj = lang === 'es'
+                ? 'Contacto desde portafolio - ' + full
+                : 'Portfolio contact - ' + full;
+            const body = lang === 'es'
+                ? 'Hola Jacobo,%0D%0A%0D%0ATe escribo desde tu portafolio.%0D%0A%0D%0AMi nombre es: ' + full + '%0D%0A%0D%0AQuedo atento a tu respuesta.%0D%0A%0D%0ASaludos!'
+                : 'Hi Jacobo,%0D%0A%0D%0AI\'m reaching out from your portfolio.%0D%0A%0D%0AMy name is: ' + full + '%0D%0A%0D%0ALooking forward to your reply.%0D%0A%0D%0ABest!';
+            document.location.href = 'mailto:' + email + '?subject=' + encodeURIComponent(subj) + '&body=' + body;
+        });
+        document.getElementById('formLast').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') document.getElementById('formBtn').click();
+        });
+
         function updateAvail() {
             const now = new Date();
             const y = now.getFullYear();
@@ -428,7 +518,6 @@
         }
         updateAvail();
 
-        // ── Dots & counter ──
         const slides = document.querySelectorAll('.slide');
         const dotsContainer = document.getElementById('dots');
         const counter = document.getElementById('counter');
@@ -446,9 +535,7 @@
             let active = 0;
             slides.forEach((s, i) => {
                 const rect = s.getBoundingClientRect();
-                if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
-                    active = i;
-                }
+                if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) active = i;
             });
             dots.forEach((d, i) => d.classList.toggle('active', i === active));
             counter.textContent = (active + 1) + ' / ' + slides.length;
