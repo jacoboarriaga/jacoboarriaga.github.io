@@ -15,22 +15,22 @@
         }
 
         :root {
-            --primary: #202A44;
-            --secondary: #BB6F58;
-            --bg-main: #f5f5f5;
+            --primary: #000000;
+            --secondary: #b8653a;
+            --bg-main: #fafafa;
             --bg-card: #ffffff;
-            --text-main: #202A44;
-            --text-secondary: #666;
-            --shadow: rgba(32, 42, 68, 0.1);
+            --text-main: #000000;
+            --text-secondary: #666666;
+            --shadow: rgba(0, 0, 0, 0.08);
         }
 
         body.dark-mode {
-            --primary: #BB6F58;
-            --secondary: #E8A592;
-            --bg-main: #1a1a1a;
-            --bg-card: #202A44;
-            --text-main: #f5f5f5;
-            --text-secondary: #c0c0c0;
+            --primary: #b8653a;
+            --secondary: #d9956d;
+            --bg-main: #0f0f0f;
+            --bg-card: #1a1a1a;
+            --text-main: #ffffff;
+            --text-secondary: #d4d4d8;
             --shadow: rgba(0, 0, 0, 0.3);
         }
 
@@ -63,23 +63,23 @@
             background: var(--secondary);
             border-radius: 50%;
             animation: twinkle 3s infinite ease-in-out;
-            opacity: 0.3;
+            opacity: 0.15;
         }
 
         @keyframes twinkle {
-            0%, 100% { opacity: 0.2; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.2); }
+            0%, 100% { opacity: 0.1; transform: scale(1); }
+            50% { opacity: 0.2; transform: scale(1.1); }
         }
 
         /* Contenedor principal */
         .container {
-            /*background: var(--bg-card);*/
+            background: var(--bg-card);
             backdrop-filter: blur(0.5px);
-            border-radius: 30px;
+            border-radius: 16px;
             padding: 60px 50px;
             max-width: 900px;
             width: 100%;
-            box-shadow: 0 20px 60px var(--shadow);
+            box-shadow: 0 2px 8px var(--shadow);
             position: relative;
             z-index: 2;
             animation: fadeIn 0.8s ease;
@@ -103,20 +103,21 @@
 
         .control-btn {
             padding: 12px 24px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border: none;
-            border-radius: 25px;
+            background: var(--primary);
+            border: 1px solid var(--secondary);
+            border-radius: 16px;
             cursor: pointer;
             font-weight: 600;
-            color: white;
+            color: var(--secondary);
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(187, 111, 88, 0.3);
+            box-shadow: none;
             font-size: 14px;
         }
 
         .control-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(187, 111, 88, 0.5);
+            background: var(--secondary);
+            color: white;
+            transform: scale(1.05);
         }
 
         /* Foto de perfil */
@@ -128,17 +129,17 @@
         .profile-pic {
             width: 160px;
             height: 160px;
-            border-radius: 50%;
+            border-radius: 16px;
             object-fit: cover;
-            border: 5px solid var(--secondary);
-            box-shadow: 0 10px 30px rgba(187, 111, 88, 0.3);
+            border: 2px solid var(--secondary);
+            box-shadow: 0 4px 12px var(--shadow);
             transition: all 0.4s ease;
             margin-bottom: 20px;
         }
 
         .profile-pic:hover {
-            transform: scale(1.05) rotate(5deg);
-            box-shadow: 0 15px 40px rgba(187, 111, 88, 0.5);
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px var(--shadow);
         }
 
         h1 {
@@ -166,19 +167,19 @@
         }
 
         .skill-tag {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--secondary);
             color: white;
-            padding: 10px 10px;
-            border-radius: 25px;
+            padding: 8px 16px;
+            border-radius: 16px;
             font-size: 0.9em;
             font-weight: 500;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(187, 111, 88, 0.2);
+            box-shadow: none;
         }
 
         .skill-tag:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(187, 111, 88, 0.4);
+            transform: scale(1.05);
+            opacity: 0.8;
         }
 
         /* Enlaces sociales */
@@ -195,35 +196,17 @@
             text-decoration: none;
             font-size: 1.1em;
             font-weight: 600;
-            padding: 12px 25px;
-            border: 2px solid var(--secondary);
-            border-radius: 25px;
+            padding: 10px 24px;
+            border: 1px solid var(--text-main);
+            border-radius: 16px;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .social-links a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            transition: left 0.3s ease;
-            z-index: -1;
-        }
-
-        .social-links a:hover::before {
-            left: 0;
         }
 
         .social-links a:hover {
             color: white;
+            background: var(--secondary);
             border-color: var(--secondary);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 20px rgba(187, 111, 88, 0.3);
+            transform: translateY(-2px);
         }
 
         /* Proyectos */
@@ -241,21 +224,21 @@
         }
 
         .project-card {
-            background: linear-gradient(135deg, rgba(187, 111, 88, 0.1) 0%, rgba(32, 42, 68, 0.05) 100%);
-            border-radius: 20px;
+            background: var(--bg-card);
+            border-radius: 16px;
             padding: 20px;
             margin: 20px 0;
             transition: all 0.3s ease;
-            border: 2px solid transparent;
+            border: 1px solid #e5e7eb;
         }
 
         body.dark-mode .project-card {
-            background: linear-gradient(135deg, rgba(187, 111, 88, 0.15) 0%, rgba(32, 42, 68, 0.3) 100%);
+            border-color: #333333;
         }
 
         .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px var(--shadow);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px var(--shadow);
             border-color: var(--secondary);
         }
 
@@ -277,18 +260,67 @@
         .project-card a {
             display: inline-block;
             color: white;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--secondary);
             text-decoration: none;
-            padding: 12px 30px;
-            border-radius: 25px;
+            padding: 10px 24px;
+            border-radius: 16px;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(187, 111, 88, 0.3);
+            box-shadow: none;
         }
 
         .project-card a:hover {
+            opacity: 0.8;
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(187, 111, 88, 0.5);
+        }
+
+        /* Sección Working On */
+        .working-on {
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        body.dark-mode .working-on {
+            border-top-color: #333333;
+        }
+
+        .working-on h2 {
+            color: var(--text-main);
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        /* Categorías */
+        .project-categories {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .category {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .category-title {
+            color: var(--primary);
+            font-size: 1.3em;
+            font-weight: 700;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--secondary);
+            transition: all 0.3s ease;
+        }
+
+        .category-projects {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         /* Decoración de planetas pequeños */
@@ -301,24 +333,24 @@
         .planet-1 {
             width: 80px;
             height: 80px;
-            background: radial-gradient(circle at 30% 30%, var(--secondary), var(--primary));
+            background: var(--secondary);
             border-radius: 50%;
             top: 10%;
             right: 10%;
-            opacity: 0.4;
-            box-shadow: 0 0 40px rgba(187, 111, 88, 0.5);
+            opacity: 0.08;
+            box-shadow: none;
             animation: float 6s ease-in-out infinite;
         }
 
         .planet-2 {
             width: 60px;
             height: 60px;
-            background: radial-gradient(circle at 30% 30%, var(--primary), var(--secondary));
+            background: var(--secondary);
             border-radius: 50%;
             bottom: 15%;
             left: 8%;
-            opacity: 0.4;
-            box-shadow: 0 0 30px rgba(32, 42, 68, 0.5);
+            opacity: 0.08;
+            box-shadow: none;
             animation: float 8s ease-in-out infinite reverse;
         }
 
@@ -401,34 +433,95 @@
             <span class="skill-tag" data-es="Dominios" data-en="Domains">Dominios</span>
         </div>
 
+        <!-- Sección Working On -->
+        <div class="working-on">
+            <h2 data-es="En Desarrollo" data-en="Working On">En Desarrollo</h2>
+            <div class="project-categories">
+                <div class="category">
+                    <div class="category-projects">
+                        <div class="project-card">
+                            <h3>Brutal.sv</h3>
+                            <p class="project-desc" 
+                                data-es="Proyecto en desarrollo. Solución innovadora diseñada para optimizar y revolucionar tu experiencia digital." 
+                                data-en="Project under development. Innovative solution designed to optimize and revolutionize your digital experience.">
+                                Proyecto en desarrollo. Solución innovadora diseñada para optimizar y revolucionar tu experiencia digital.
+                            </p>
+                            <a href="#" target="_blank" class="project-link" data-es="Próximamente" data-en="Coming soon">Próximamente</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="projects">
-            <h2 data-es="Proyectos" data-en="Projects">Proyectos</h2>
-            <div class="project-card">
-                <h3>Expense Manager</h3>
-                <p class="project-desc" 
-                    data-es="Gestor de gastos desarrollado con Python y SQL Server. Una herramienta eficiente para el control financiero personal." 
-                    data-en="Expense manager developed with Python and SQL Server. An efficient tool for personal financial control.">
-                    Gestor de gastos desarrollado con Python y SQL Server. Una herramienta eficiente para el control financiero personal.
-                </p>
-                <a href="https://github.com/jacoboesv/PyExpenseManager" target="_blank" class="project-link" data-es="Ver proyecto" data-en="View project">Ver proyecto</a>
-            </div>
-            <div class="project-card">
-                <h3>Palma´s Carpentry</h3>
-                <p class="project-desc" 
-                    data-es="Palma's Carpentry: Carpintería Fina y Soluciones Personalizadas. Transformamos tus ideas en piezas duraderas y funcionales, utilizando materiales de primera. Desde muebles a medida hasta instalaciones completas, tu proyecto está en manos expertas." 
-                    data-en="Palma's Carpentry: Fine Woodworking and Custom Solutions. We transform your ideas into durable and functional pieces, using premium materials. From custom-made furniture to complete installations, your project is in expert hands.">
-                    Palma's Carpentry: Carpintería Fina y Soluciones Personalizadas. Transformamos tus ideas en piezas duraderas y funcionales, utilizando materiales de primera. Desde muebles a medida hasta instalaciones completas, tu proyecto está en manos expertas.
-                </p>
-                <a href="https://palmacarpentry.com" target="_blank" class="project-link" data-es="Ver proyecto" data-en="View project">Ver proyecto</a>
-            </div>
-            <div class="project-card">
-                <h3>Pinturas Megacolor</h3>
-                <p class="project-desc" 
-                    data-es="Pinturas Megacolor: Calidad y Color para Cada Proyecto. Distribuidor líder de pinturas, recubrimientos y accesorios. La solución perfecta para dar vida y protección a tus espacios." 
-                    data-en="Pinturas Megacolor: Quality and Color for Every Project. Leading distributor of paints, coatings, and accessories. The perfect solution to bring life and protection to your spaces.">
-                    Pinturas Megacolor: Calidad y Color para Cada Proyecto. Distribuidor líder de pinturas, recubrimientos y accesorios. La solución perfecta para dar vida y protección a tus espacios.
-                </p>
-                <a href="https://pinturasmegacolor.com" target="_blank" class="project-link" data-es="Ver proyecto" data-en="View project">Ver proyecto</a>
+            <h2 data-es="Proyectos Completados" data-en="Completed Projects">Proyectos Completados</h2>
+            
+            <div class="project-categories">
+                <!-- Categoría Ecommerce -->
+                <div class="category">
+                    <div class="category-title" data-es="🛒 Ecommerce" data-en="🛒 Ecommerce">🛒 Ecommerce</div>
+                    <div class="category-projects">
+                        <div class="project-card">
+                            <h3>Pinturas Megacolor</h3>
+                            <p class="project-desc" 
+                                data-es="Pinturas Megacolor: Calidad y Color para Cada Proyecto. Distribuidor líder de pinturas, recubrimientos y accesorios. La solución perfecta para dar vida y protección a tus espacios." 
+                                data-en="Pinturas Megacolor: Quality and Color for Every Project. Leading distributor of paints, coatings, and accessories. The perfect solution to bring life and protection to your spaces.">
+                                Pinturas Megacolor: Calidad y Color para Cada Proyecto. Distribuidor líder de pinturas, recubrimientos y accesorios. La solución perfecta para dar vida y protección a tus espacios.
+                            </p>
+                            <a href="https://pinturasmegacolor.com" target="_blank" class="project-link" data-es="Ver proyecto" data-en="View project">Ver proyecto</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categoría Websites -->
+                <div class="category">
+                    <div class="category-title" data-es="🌐 Sitios Web" data-en="🌐 Websites">🌐 Sitios Web</div>
+                    <div class="category-projects">
+                        <div class="project-card">
+                            <h3>Palma´s Carpentry</h3>
+                            <p class="project-desc" 
+                                data-es="Palma's Carpentry: Carpintería Fina y Soluciones Personalizadas. Transformamos tus ideas en piezas duraderas y funcionales, utilizando materiales de primera. Desde muebles a medida hasta instalaciones completas, tu proyecto está en manos expertas." 
+                                data-en="Palma's Carpentry: Fine Woodworking and Custom Solutions. We transform your ideas into durable and functional pieces, using premium materials. From custom-made furniture to complete installations, your project is in expert hands.">
+                                Palma's Carpentry: Carpintería Fina y Soluciones Personalizadas. Transformamos tus ideas en piezas duraderas y funcionales, utilizando materiales de primera. Desde muebles a medida hasta instalaciones completas, tu proyecto está en manos expertas.
+                            </p>
+                            <a href="https://palmacarpentry.com" target="_blank" class="project-link" data-es="Ver proyecto" data-en="View project">Ver proyecto</a>
+                        </div>
+                        <div class="project-card">
+                            <h3>Aplicaciones ProColor</h3>
+                            <p class="project-desc" 
+                                data-es="Plataforma web para la gestión y consulta de aplicaciones especializadas. Soluciones innovadoras para optimizar procesos empresariales." 
+                                data-en="Web platform for managing and consulting specialized applications. Innovative solutions to optimize business processes.">
+                                Plataforma web para la gestión y consulta de aplicaciones especializadas. Soluciones innovadoras para optimizar procesos empresariales.
+                            </p>
+                            <a href="https://aplicacionesprocolor.com" target="_blank" class="project-link" data-es="Ver proyecto" data-en="View project">Ver proyecto</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categoría Apps -->
+                <div class="category">
+                    <div class="category-title" data-es="📱 Aplicaciones" data-en="📱 Apps">📱 Aplicaciones</div>
+                    <div class="category-projects">
+                        <div class="project-card">
+                            <h3>Expense Manager</h3>
+                            <p class="project-desc" 
+                                data-es="Gestor de gastos desarrollado con Python y SQL Server. Una herramienta eficiente para el control financiero personal." 
+                                data-en="Expense manager developed with Python and SQL Server. An efficient tool for personal financial control.">
+                                Gestor de gastos desarrollado con Python y SQL Server. Una herramienta eficiente para el control financiero personal.
+                            </p>
+                            <a href="https://github.com/jacoboesv/PyExpenseManager" target="_blank" class="project-link" data-es="Ver proyecto" data-en="View project">Ver proyecto</a>
+                        </div>
+                        <div class="project-card">
+                            <h3>AproMan</h3>
+                            <p class="project-desc" 
+                                data-es="Sistema de gestión de proyectos desarrollado para optimizar la planificación, seguimiento y ejecución de proyectos. Herramienta integral para equipos colaborativos." 
+                                data-en="Project management system developed to optimize planning, tracking, and project execution. Comprehensive tool for collaborative teams.">
+                                Sistema de gestión de proyectos desarrollado para optimizar la planificación, seguimiento y ejecución de proyectos. Herramienta integral para equipos colaborativos.
+                            </p>
+                            <a href="#" target="_blank" class="project-link" data-es="Ver proyecto" data-en="View project">Ver proyecto</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
